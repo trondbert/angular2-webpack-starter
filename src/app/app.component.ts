@@ -4,6 +4,9 @@
 import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
+import {Router} from "@angular/router";
+
+import * as Firebase from 'firebase';
 
 /*
  * App Component
@@ -63,14 +66,38 @@ export class App {
   name = 'Angular 2 Webpack Starter';
   url = 'https://twitter.com/AngularClass';
 
-  constructor(
-    public appState: AppState) {
+  constructor(public appState: AppState, public router:Router) {
 
   }
 
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
+
+    /*let link = ['RecipeNew'];
+    this.router.navigate(link);*/
+
+    var config = {
+      apiKey: "AIzaSyCIO8byvnKVyB7fC-9KPySuSFvrJUdfk6w",
+      authDomain: "test-heroes-9b13f.firebaseapp.com",
+      databaseURL: "https://test-heroes-9b13f.firebaseio.com",
+      storageBucket: "test-heroes-9b13f.appspot.com",
+    };
+    // var config = {
+    //   apiKey: "AIzaSyB7rqRVUb2L84B52gfKniBqGkGOzJf0JtA",
+    //   authDomain: "blinding-fire-2931.firebaseapp.com",
+    //   databaseURL: "https://blinding-fire-2931.firebaseio.com",
+    //   storageBucket: "blinding-fire-2931.appspot.com",
+    // };
+    window['_firebase'] = Firebase.initializeApp(config);
   }
+
+  static dateToString(date) {
+    if (date == null) return null;
+
+    return "" + (date.getYear() + 1900) +
+      ("0" + (date.getMonth() + 1)).slice(-2) +
+      ("0" + date.getDate()).slice(-2);
+  };
 
 }
 

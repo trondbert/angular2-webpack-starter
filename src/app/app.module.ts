@@ -1,4 +1,4 @@
-import { NgModule, ApplicationRef } from '@angular/core';
+import {NgModule, ApplicationRef, Type} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -18,6 +18,7 @@ import { Home } from './home';
 import { About } from './about';
 import { NoContent } from './no-content';
 import { XLarge } from './home/x-large';
+import { Recipesnew } from "./recipesnew";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -40,6 +41,7 @@ type StoreType = {
     App,
     About,
     Home,
+    Recipesnew,
     NoContent,
     XLarge
   ],
@@ -54,6 +56,7 @@ type StoreType = {
     APP_PROVIDERS
   ]
 })
+
 export class AppModule {
   constructor(public appRef: ApplicationRef, public appState: AppState) {}
 
