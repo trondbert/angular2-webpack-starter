@@ -14,9 +14,5 @@ describe('App', () => {
       AppState,
       App
     ]}));
-
-  it('should have a url', inject([ App ], (app: App) => {
-    expect(app.url).toEqual('https://twitter.com/AngularClass');
-  }));
-
+  
 });

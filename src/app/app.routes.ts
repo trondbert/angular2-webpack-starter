@@ -1,19 +1,19 @@
-import { Routes, RouterModule } from '@angular/router';
-import { Home } from './home';
+import { Routes } from '@angular/router';
+import { HomeComponent } from './home';
 import { About } from './about';
 import { NoContent } from './no-content';
 
-import { DataResolver } from './app.resolver';
-import {Recipesnew} from "./recipesnew";
-
+import {RecipesNewComponent} from "./recipes";
+import {RecipesEditComponent} from "./recipes/recipes-edit.component";
 
 export const ROUTES: Routes = [
-  { path: '',      component: Home },
-  { path: 'home',  component: Home },
+  { path: '',      component: HomeComponent },
+  { path: 'home',  component: HomeComponent },
   { path: 'about', component: About },
   {
     path: 'detail', loadChildren: () => System.import('./+detail')
   },
-  { path : 'recipesnew',              component : Recipesnew},
+  { path : 'recipes/new',               component : RecipesNewComponent},
+  { path : 'recipes/edit',              component : RecipesEditComponent},
   { path: '**',    component: NoContent }
 ];

@@ -14,16 +14,21 @@ import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
-import { Home } from './home';
+import { HomeComponent } from './home';
 import { About } from './about';
 import { NoContent } from './no-content';
 import { XLarge } from './home/x-large';
-import { Recipesnew } from "./recipesnew";
+import { RecipesNewComponent } from "./recipes";
+import { RecipeService } from "./recipes/recipe.service";
+import {ImageService} from "./image.service";
+import {RecipesEditComponent} from "./recipes/recipes-edit.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
-  ...APP_RESOLVER_PROVIDERS,
-  AppState
+    ...APP_RESOLVER_PROVIDERS,
+    AppState,
+    RecipeService,
+    ImageService
 ];
 
 type StoreType = {
@@ -36,20 +41,21 @@ type StoreType = {
  * `AppModule` is the main entry point into Angular2's bootstraping process
  */
 @NgModule({
-  bootstrap: [ App ],
-  declarations: [
-    App,
-    About,
-    Home,
-    Recipesnew,
-    NoContent,
-    XLarge
-  ],
-  imports: [ // import Angular's modules
-    BrowserModule,
-    FormsModule,
-    HttpModule,
-    RouterModule.forRoot(ROUTES, { useHash: true })
+    bootstrap: [ App ],
+    declarations: [
+        App,
+        About,
+        HomeComponent,
+        RecipesNewComponent,
+        RecipesEditComponent,
+        NoContent,
+        XLarge
+    ],
+    imports: [ // import Angular's modules
+        BrowserModule,
+        FormsModule,
+        HttpModule,
+        RouterModule.forRoot(ROUTES, { useHash: true })
   ],
   providers: [ // expose our Services and Providers into Angular's dependency injection
     ENV_PROVIDERS,

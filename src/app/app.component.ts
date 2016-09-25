@@ -5,8 +5,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
 import {Router} from "@angular/router";
-
-import * as Firebase from 'firebase';
+import {FirebaseFactory} from "./firebase.factory";
 
 /*
  * App Component
@@ -16,55 +15,39 @@ import * as Firebase from 'firebase';
   selector: 'app',
   encapsulation: ViewEncapsulation.None,
   styleUrls: [
-    './app.style.css'
+    './layout/app.style.css', './layout/app.style.css'
   ],
   template: `
-    <nav>
-      <span>
-        <a [routerLink]=" ['./'] ">
-          Index
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./home'] ">
-          Home
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./detail'] ">
-          Detail
-        </a>
-      </span>
-      |
-      <span>
-        <a [routerLink]=" ['./about'] ">
-          About
-        </a>
-      </span>
-    </nav>
-
-    <main>
-      <router-outlet></router-outlet>
-    </main>
-
-    <pre class="app-state">this.appState.state = {{ appState.state | json }}</pre>
-
-    <footer>
-      <span>WebPack Angular 2 Starter by <a [href]="url">@AngularClass</a></span>
-      <div>
-        <a [href]="url">
-          <img [src]="angularclassLogo" width="25%">
-        </a>
-      </div>
-    </footer>
+        <div class="siteHeader"><h1>{{name}}</h1>
+        <nav>
+            <ul><li><a [routerLink]="['/recipes/category/middag']">Middag</a>
+                    <ul><li><a [routerLink]="['/recipes/category/middag&fisk']">Fisk</a></li>
+                        <li><a [routerLink]="['/recipes/category/middag&kjoett']">Kjøtt</a></li>
+                        <li><a [routerLink]="['/recipes/category/middag&vegetar']">Vegetar</a></li>
+                    </ul>
+                </li>
+                <li><a [routerLink]="['/recipes/category/snacks']">Snacks</a></li>
+                <li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Vin</a>
+                    <ul><li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li></ul>
+                </li>
+                <li class="moreOptions"><a href="#">&#x2295;</a>
+                    <ul><li><a [routerLink]=" ['./recipes/new'] ">Ny&nbsp;oppskrift</a></li>
+                        <li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li>
+                        <li class="loggUt"><a (click)="logOut()">Logg ut</a></li>
+                    </ul>
+                </li>
+                <li class ="loggInn">
+                    <input #box type="text" size="12" placeholder="Passord her..." 
+                        (keyup.enter)="logIn(box.value)" (blur)="logIn(box.value)"/>
+                </li>
+            </ul>
+        </nav>
+        </div>
+        <router-outlet></router-outlet>
   `
 })
 export class App {
-  angularclassLogo = 'assets/img/angularclass-avatar.png';
-  name = 'Angular 2 Webpack Starter';
-  url = 'https://twitter.com/AngularClass';
+  name = 'Mat, drikke og kos';
 
   constructor(public appState: AppState, public router:Router) {
 
@@ -73,22 +56,6 @@ export class App {
   ngOnInit() {
     console.log('Initial App State', this.appState.state);
 
-    /*let link = ['RecipeNew'];
-    this.router.navigate(link);*/
-
-    var config = {
-      apiKey: "AIzaSyCIO8byvnKVyB7fC-9KPySuSFvrJUdfk6w",
-      authDomain: "test-heroes-9b13f.firebaseapp.com",
-      databaseURL: "https://test-heroes-9b13f.firebaseio.com",
-      storageBucket: "test-heroes-9b13f.appspot.com",
-    };
-    // var config = {
-    //   apiKey: "AIzaSyB7rqRVUb2L84B52gfKniBqGkGOzJf0JtA",
-    //   authDomain: "blinding-fire-2931.firebaseapp.com",
-    //   databaseURL: "https://blinding-fire-2931.firebaseio.com",
-    //   storageBucket: "blinding-fire-2931.appspot.com",
-    // };
-    window['_firebase'] = Firebase.initializeApp(config);
   }
 
   static dateToString(date) {

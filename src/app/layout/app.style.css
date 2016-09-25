@@ -1,0 +1,139 @@
+body {
+    background-color: #000;
+}
+.appframe {
+    background-color: #fff;
+    width: 1000px;
+    max-width: 1000px;
+    margin: auto;
+}
+.loading {
+    padding: 2em;
+}
+
+h1 {
+    font-size: 1.8em;
+    color: #999;
+    margin-bottom: 0;
+}
+
+img.frontpageImage {
+    width: 100%;
+}
+
+.siteHeader {
+    background-color: #efefef;
+    background-image: -moz-linear-gradient(top, #ffffff, #eaeaea);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #ffffff), color-stop(1, #eaeaea));
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorStr = '#ffffff', EndColorStr = '#eaeaea');
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorStr='#ffffff', EndColorStr='#eaeaea')";
+
+    padding: 0.2em 0.5em;
+}
+
+.siteHeader h1 {
+    text-shadow: 4px 4px 4px #aaa;
+    color: #666666;
+    line-height: 1.7em;
+    text-align: center;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 2em;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+nav {
+    position:relative;
+}
+nav a, button {
+    padding: 0.3em 0.7em;
+    text-decoration: none;
+    margin-top: 0.2em;
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 0.3em;
+    cursor: hand;
+    font-size: 1.1em;
+    color: #607D8B;
+}
+
+nav li {
+    margin-left: 0.3em;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+nav li {
+    padding: 0 0.1em;
+}
+nav > ul > li {
+    display: inline-block;
+    vertical-align: top;
+    width: 13%;
+    position: relative;
+}
+nav > ul > li > ul {
+    position: absolute;
+    padding: 0.5em;
+    opacity: 100;
+    top: 100%;
+    visibility: hidden;
+    background-color: transparent;
+    z-index: 100;
+}
+nav > ul > li:hover > ul {
+    visibility: visible;
+}
+nav li input {
+    margin-top: 0.5em;
+}
+li.loggInn {
+    float: right;
+}
+li.moreOptions, li.moreOptions * {
+    float:right;
+}
+
+button.newGroup {
+    margin-left: 2em;
+}
+
+nav a:hover, nav button:hover {
+    color: #039be5;
+    background-color: #CFD8DC;
+}
+
+img {
+    max-width: 100%;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input, textarea, div {
+    font-size: 1em;
+}
+
+html, body {
+    font-size: 16px;
+}
+
+a.imageText {
+    text-decoration: none;
+    font-size: 1.1em;
+    color: #539191;
+    display: inline-block;
+    margin-top: 0.2em;
+}
+
+article {
+    padding: 0.5em;
+}

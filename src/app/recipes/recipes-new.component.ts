@@ -2,18 +2,20 @@ import {Component, OnInit} from '@angular/core';
 
 import {Router} from "@angular/router";
 import {Recipe} from "../recipe";
+import {RecipeService} from "./recipe.service";
 declare var $:any;
 
 @Component({
-  selector: 'recipeNew',
-  templateUrl: './recipe-edit.component.html',
-  styleUrls: []
+  selector: 'recipes/new',
+  templateUrl: '../layout/recipe-edit.template.html',
+  styleUrls: ['../layout/app.style.css', '../layout/recipe-edit.style.css']
 })
-export class Recipesnew implements OnInit {
+export class RecipesNewComponent implements OnInit {
 
   private recipe:Recipe;
 
-  constructor(private router:Router) {
+  constructor(private router:Router,
+              private recipeService:RecipeService ) {
 
   }
 
@@ -24,10 +26,10 @@ export class Recipesnew implements OnInit {
   save() {
     var thiz = this;
     var callback = function(recipeKey) {
-      let link = ['RecipeEdit', {key: recipeKey}];
+      let link = ['recipes/edit', {key: recipeKey}];
       thiz.router.navigate(link);
     };
-    //this.recipeService.saveRecipe(this.recipe, callback);
+    this.recipeService.saveRecipe(this.recipe, callback);
   }
 
   backToRecipes() {
