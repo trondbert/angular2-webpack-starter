@@ -1,8 +1,8 @@
-import {NgModule, ApplicationRef, Type} from '@angular/core';
+import {NgModule, ApplicationRef} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { RouterModule } from '@angular/router';
+import {RouterModule} from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 
 /*
@@ -10,7 +10,6 @@ import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularcla
  */
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
-// App is our top level component
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
@@ -19,16 +18,19 @@ import { About } from './about';
 import { NoContent } from './no-content';
 import { XLarge } from './home/x-large';
 import { RecipesNewComponent } from "./recipes";
-import { RecipeService } from "./recipes/recipe.service";
 import {ImageService} from "./image.service";
-import {RecipesEditComponent} from "./recipes/recipes-edit.component";
+import {RecipesEditComponent} from "./recipes/recipe-edit.component";
+import {RecipesByCategoryComponent} from "./recipes/recipes-by-category.component";
+import {RecipeMockService} from "./recipes/recipe.mock.service";
+import {RecipeService} from "./recipes";
+import {ServiceFactory} from "./service.factory";
 
 // Application wide providers
 const APP_PROVIDERS = [
     ...APP_RESOLVER_PROVIDERS,
     AppState,
-    RecipeService,
-    ImageService
+    ImageService,
+    { provide: RecipeService, useClass: ServiceFactory.getRecipeService() },
 ];
 
 type StoreType = {
@@ -48,6 +50,7 @@ type StoreType = {
         HomeComponent,
         RecipesNewComponent,
         RecipesEditComponent,
+        RecipesByCategoryComponent,
         NoContent,
         XLarge
     ],

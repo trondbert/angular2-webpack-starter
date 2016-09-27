@@ -1,6 +1,6 @@
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {Recipe} from "./recipe";
+import {Recipe} from "./recipes/recipe";
 
 export abstract class GenericComponent {
     

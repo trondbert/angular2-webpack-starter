@@ -1,7 +1,7 @@
-import {App} from "./app.component";
+import {App} from "../app.component";
+
 export class Recipe {
   key:string;
-  id:number;
   name:string;
   tags:string;
   transients;
@@ -19,6 +19,5 @@ export class Recipe {
     this.imageId = null;
     this.instructions = null;
     this.tags = null;
-    this.id = null;
   }
 }

@@ -1,12 +1,11 @@
-import { Component, Input, OnInit } from '@angular/core';
-import {Router, ActivatedRoute} from '@angular/router';
-
-import {RecipeService} from "./recipe.service";
+import {Component} from "@angular/core";
+import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {RecipesListComponent} from "./recipes-list.component";
-import {Recipe} from "../recipe";
 import {ImageService} from "../image.service";
-import {RecipeComponent} from "./recipe-component";
+import {Recipe} from "./recipe";
+import {RecipeComponent} from "./recipe.component";
+import {RecipeService} from "./recipe.service";
+
 declare var $:any;
 
 @Component({

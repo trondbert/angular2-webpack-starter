@@ -1,15 +1,12 @@
-import {RecipeService} from "./recipe.service";
 import {GenericComponent} from "../generic.component";
-import {Recipe} from "../recipe";
+import {Recipe} from "./recipe";
+import {RecipeService} from "./recipe.service";
 
 export abstract class RecipeComponent extends GenericComponent {
 
-    private recipeService:RecipeService;
-
     constructor(private mode:string,
-                recipeService:RecipeService) {
+                private recipeService:RecipeService) {
         super();
-        this.recipeService = recipeService;
     }
 
     ngOnInit() {

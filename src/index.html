@@ -33,6 +33,10 @@
   <script src="/webpack-dev-server.js"></script>
   <% } %>
 
+    <% if (webpackConfig.metadata.ENV == "test") { %>
+    <script src="./test-modules.js"></script>
+    <% } %>
+
 
 </body>
 </html>

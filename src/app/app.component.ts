@@ -5,7 +5,6 @@ import { Component, ViewEncapsulation } from '@angular/core';
 
 import { AppState } from './app.service';
 import {Router} from "@angular/router";
-import {FirebaseFactory} from "./firebase.factory";
 
 /*
  * App Component

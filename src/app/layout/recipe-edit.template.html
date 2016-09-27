@@ -1,5 +1,3 @@
-<div class="fisk">torsk</div>
-
 <article *ngIf="recipe" (keydown.enter)="keyDownEnter($event)">
   <div class="detailTop">
     <div class="detailLeftSide">
@@ -17,8 +15,8 @@
         <span class="imageText">{{recipe.image ? 'Endre bilde' : 'Legg til bilde'}}</span>
         <img src="{{recipe.image ? recipe.image.imageData : placeholderImage}}"
              class="imagePreview" (click)="chooseImg()"/>
+        <input type="file" id="imageChooser" (change)="imgChosen($event)" hidden/>
       </div>
-      <input type="file" id="imageChooser" (change)="imgChosen($event)" hidden/>
     </div>
 
     <div class="detailRightSide">

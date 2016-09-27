@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 
 import {Router} from "@angular/router";
-import {Recipe} from "../recipe";
+import {Recipe} from "./recipe";
 import {RecipeService} from "./recipe.service";
-declare var $:any;
+import {StaticData} from "../static.data";
 
 @Component({
   selector: 'recipes/new',
@@ -14,6 +14,8 @@ export class RecipesNewComponent implements OnInit {
 
   private recipe:Recipe;
 
+  private placeholderImage;
+
   constructor(private router:Router,
               private recipeService:RecipeService ) {
 
@@ -21,6 +23,7 @@ export class RecipesNewComponent implements OnInit {
 
   ngOnInit() {
     this.recipe = new Recipe();
+    this.placeholderImage = StaticData.placeholderImage;
   }
 
   save() {
@@ -38,8 +41,7 @@ export class RecipesNewComponent implements OnInit {
   }
 
   chooseImg() {
-    //noinspection TypeScriptUnresolvedFunction
-    $("#imageChooser").trigger("click");
+    document.getElementById("imageChooser").click()
   }
 
   imgChosen(event) {
