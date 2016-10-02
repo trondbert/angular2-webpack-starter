@@ -11,12 +11,15 @@ export class ImageService {
     }
 
     getImage(imageKey, callback) {
+        if (!imageKey || imageKey.trim() == "") {
+            callback.call(this, null);
+            return;
+        }
+        console.log("imagekey: " + imageKey);
         var imageRef = this.getFirebaseRef('images/' + imageKey);
         imageRef.once("value", function (data) {
-            console.log("DEBUG IMG " + data.key);
             var imageFb = data.val();
             if (imageFb) {
-                console.log("DEBUG IMG " + (imageFb.imageData ? imageFb.imageData.substring(0, 15) : imageFb.imageData));
                 callback.call(this, {key: data.key, imageData: imageFb.imageData});
             }
         });

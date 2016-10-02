@@ -1,7 +1,7 @@
 <article class="recipeList">
     <div *ngFor="let recipe of recipes" class="recipe"
          (click)="goToRecipe(recipe, $event)">
-        <img *ngIf="recipe.image" [src]="recipe.image.imageData">
+        <img [src]="recipe.image ? recipe.image.imageData : placeholderImage">
         <a class="imageText" href="">{{recipe.name}}</a>
     </div>
 </article>

@@ -55,3 +55,7 @@ textarea.ingredients {
     background-color: black;
     visibility: hidden;
 }
+
+.imageBox > img {
+    cursor: pointer;
+}

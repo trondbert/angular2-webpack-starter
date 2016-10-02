@@ -31,11 +31,13 @@ import {FirebaseFactory} from "./firebase.factory";
                     <ul><li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li></ul>
                 </li>
                 <li class="moreOptions"><a href="#">&#x2295;</a>
-                    <ul><li><a [routerLink]=" ['./recipes/new'] ">Ny&nbsp;oppskrift</a></li>
+                    <ul><li><a [routerLink]="['./recipes/new']">Ny&nbsp;oppskrift</a></li>
                         <li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li>
+                        <li><a [routerLink]="['/recipes']">Alle oppskrifter</a></li>
                         <li *ngIf="user" class="loggUt"><a (click)="logOut()">Logg ut</a></li>
                     </ul>
                 </li>
+                <li></li>
                 <li class ="loggInn">
                     <input *ngIf="!user" #box type="text" size="12" placeholder="Passord her..." 
                         (keyup.enter)="logIn(box.value)" (blur)="logIn(box.value)"/>
@@ -88,10 +90,3 @@ export class App {
 
 }
 
-/*
- * Please review the https://github.com/AngularClass/angular2-examples/ repo for
- * more angular app examples that you may copy/paste
- * (The examples may not be updated as quickly. Please open an issue on github for us to update it)
- * For help or questions please contact us at @AngularClass on twitter
- * or our chat on Slack at https://AngularClass.com/slack-join
- */

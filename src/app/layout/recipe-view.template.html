@@ -5,7 +5,7 @@
                 {{recipe.name}}
             </div>
             <div class="imageBox">
-                <img src="{{recipe.image ? recipe.image.imageData : placeholderImage}}"
+                <img [src]="recipe.image ? recipe.image.imageData : placeholderImage"
                      class="imagePreview" />
             </div>
         </div>

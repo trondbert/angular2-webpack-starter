@@ -98,7 +98,7 @@ export class RecipeFirebaseService extends RecipeService {
         var forStorage = {
             dateCreated: recipe.dateCreated,
             dateModified: recipe.dateModified,
-            imageId: recipe.imageId || "",
+            imageId: recipe.imageId,
             ingredients: recipe.transients.ingredients1 + "~*/|" + recipe.transients.ingredients2,
             instructions: recipe.instructions || "",
             name: recipe.name || "",
@@ -152,6 +152,7 @@ export class RecipeFirebaseService extends RecipeService {
             var tagsNoScandinavian = tags.replace(/ø/g, "oe").replace(/æ/g, "ae").replace(/å/g, "aa");
             tagsMap["tags_" + tagsNoScandinavian] = true;
         }
+        if (tagsList)
         return tagsMap;
     }
 

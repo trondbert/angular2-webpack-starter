@@ -5,6 +5,7 @@ import {OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router"
 import {Location} from "@angular/common";
 import {RecipeService} from "./recipe.service";
+import {StaticData} from "../static.data";
 
 @Component({
     selector: 'recipes',
@@ -14,9 +15,10 @@ import {RecipeService} from "./recipe.service";
 export class RecipesListComponent extends GenericComponent implements OnInit {
 
     private recipeService: RecipeService;
-    private recipes = [];
+    protected recipes = [];
 
-    recipesMap:{[key:string]:Recipe;} = {};
+    protected recipesMap:{[key:string]:Recipe;} = {};
+    protected placeholderImage;
 
     constructor(recipeService:RecipeService,
                 private route:ActivatedRoute,
@@ -35,6 +37,9 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
             thisComp.recipes.push(recipe);
             thisComp.recipesMap[recipe.key] = recipe;
         });
+        
+        window['recipes'] = thisComp.recipes;
+        this.placeholderImage = StaticData.placeholderImage;
     }
 
     getRecipeService() {

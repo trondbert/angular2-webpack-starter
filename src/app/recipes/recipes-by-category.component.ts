@@ -12,7 +12,6 @@ import {RecipeService} from "./recipe.service";
 export class RecipesByCategoryComponent extends RecipesListComponent {
 
     private sub:any;
-    private recipes = [];
 
     constructor(router:Router,
                 route:ActivatedRoute,
@@ -26,7 +25,6 @@ export class RecipesByCategoryComponent extends RecipesListComponent {
         this.sub = this.getRoute().params.subscribe(params => {
             thisComp.recipes = [];
             thisComp.getRecipeService().getRecipesByCategory(params['key'], function(recipe) {
-                console.log("DEBUG Callback RecByCat " + recipe);
                 thisComp.recipes.push(recipe);
                 thisComp.recipesMap[recipe.key] = recipe;
             });

@@ -37,6 +37,9 @@
             <textarea [(ngModel)]="recipe.instructions" class="instructions"
                       title="Slik gjør du"></textarea>
     </div>
+    <div *ngFor="let error of errors">
+      <i>{{error}}</i>
+    </div>
 
     <div>
       <button (click)="save()">{{recipe.$id ? 'Oppdater' : 'Lagre'}}</button>
