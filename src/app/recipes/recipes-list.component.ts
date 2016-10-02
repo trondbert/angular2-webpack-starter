@@ -1,3 +1,4 @@
+import { Component } from '@angular/core';
 import {Recipe} from "./recipe";
 import {GenericComponent} from "../generic.component";
 import {OnInit} from "@angular/core";
@@ -5,9 +6,15 @@ import {ActivatedRoute, Router} from "@angular/router"
 import {Location} from "@angular/common";
 import {RecipeService} from "./recipe.service";
 
-export abstract class RecipesListComponent extends GenericComponent implements OnInit {
+@Component({
+    selector: 'recipes',
+    templateUrl: '../layout/recipes.template.html',
+    styleUrls: ['../layout/app.style.css', '../layout/recipes.style.css']
+})
+export class RecipesListComponent extends GenericComponent implements OnInit {
 
     private recipeService: RecipeService;
+    private recipes = [];
 
     recipesMap:{[key:string]:Recipe;} = {};
 
@@ -21,6 +28,13 @@ export abstract class RecipesListComponent extends GenericComponent implements O
 
     ngOnInit() {
         super.ngOnInit();
+        var thisComp = this;
+        thisComp.recipes = [];
+        thisComp.getRecipeService().getAllRecipes(function(recipe) {
+            console.log("DEBUG Callback RecByCat " + recipe);
+            thisComp.recipes.push(recipe);
+            thisComp.recipesMap[recipe.key] = recipe;
+        });
     }
 
     getRecipeService() {

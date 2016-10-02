@@ -20,8 +20,6 @@ export class FirebaseFactory {
         //   storageBucket: "blinding-fire-2931.appspot.com",
         // };
         FirebaseFactory.dataService = Firebase.initializeApp(config);
-
-        FirebaseFactory.logIn("password"); //TODO les dette fra bruker
     }
 
     public static getFirebaseRef(url) {

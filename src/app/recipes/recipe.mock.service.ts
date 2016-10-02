@@ -16,8 +16,8 @@ export class RecipeMockService extends RecipeService {
         this.recipe1.image = {"imageData": StaticData.kyllinggryteImg};
         this.recipe1.tags = "kjøtt middag";
         this.recipe1.instructions = "Gjør en ting, så den neste";
-        this.recipe1.transients.ingredients1 = "Foo";
-        this.recipe1.transients.ingredients2 = "Bar";
+        this.recipe1.transients.ingredients1 = "Foo\nBar";
+        this.recipe1.transients.ingredients2 = "One line\nAnother line";
     }
 
     deleteRecipe(recipe:Recipe):void {
@@ -35,5 +35,8 @@ export class RecipeMockService extends RecipeService {
     getRecipesByCategory(category:string, callback) {
         callback.call(this, this.recipe1);
     }
-    
+
+    getAllRecipes(callback) {
+        callback.call(this, this.recipe1);
+    }
 }

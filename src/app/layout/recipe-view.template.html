@@ -1,0 +1,36 @@
+<article *ngIf="recipe" (window:keyup)="keyUp($event)">
+    <div class="detailTop">
+        <div class="detailLeftSide">
+            <div class="name">
+                {{recipe.name}}
+            </div>
+            <div class="imageBox">
+                <img src="{{recipe.image ? recipe.image.imageData : placeholderImage}}"
+                     class="imagePreview" />
+            </div>
+        </div>
+
+        <div class="detailRightSide">
+            <h3>Ingredienser:</h3>
+            <div>
+                <div [innerHTML]="withLineBreaks(recipe.transients.ingredients1)"
+                     class="ingredients"></div>
+                <div [innerHTML]="withLineBreaks(recipe.transients.ingredients2)"
+                     class="ingredients"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="detailBottom">
+        <h3>Slik gjør du:</h3>
+
+        <div [innerHTML]="withLineBreaks(recipe.instructions)" class="inputField"></div>
+
+        <div>
+            <button (click)="editRecipe()">Rediger</button>
+            <button (click)="goBack()">Tilbake</button>
+            <button (click)="goToRecipes()" class="newGroup">Til oppskrifter</button>
+            <button (click)="deleteRecipe()">Slett</button>
+        </div>
+    </div>
+</article>

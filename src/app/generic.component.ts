@@ -24,13 +24,13 @@ export abstract class GenericComponent {
     }
 
     goToRecipe(recipe:Recipe, event) {
-        let link = ['/recipe/' + recipe.key];
+        let link = ['/recipes/' + recipe.key];
         this.getRouter().navigate(link);
 
         event && event.preventDefault();
     }
 
-    static withLineBreaks(val:string) {
+    withLineBreaks(val:string) {
         if (!val) return "";
 
         return val.replace(/\n/g, '<br/>');

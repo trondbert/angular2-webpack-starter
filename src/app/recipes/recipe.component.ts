@@ -20,7 +20,7 @@ export abstract class RecipeComponent extends GenericComponent {
     abstract getRecipe() : Recipe;
 
     editRecipe() {
-        let link = ['/recipe/' + this.getRecipe().key + '/edit/'];
+        let link = ['/recipes/' + this.getRecipe().key + '/edit/'];
         this.getRouter().navigate(link);
     }
 

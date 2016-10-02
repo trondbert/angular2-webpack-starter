@@ -9,4 +9,5 @@
 
 .recipe > img {
     height: 200px;
+    cursor: pointer;
 }

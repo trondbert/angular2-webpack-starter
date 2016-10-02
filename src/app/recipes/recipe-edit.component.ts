@@ -56,7 +56,7 @@ export class RecipesEditComponent extends RecipeComponent {
 
     chooseImg() {
         //noinspection TypeScriptUnresolvedFunction
-        $("#imageChooser").trigger("click");
+        document.getElementById("imageChooser").click();
     }
 
     imgChosen(event) {

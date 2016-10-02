@@ -24,6 +24,8 @@ import {RecipesByCategoryComponent} from "./recipes/recipes-by-category.componen
 import {RecipeMockService} from "./recipes/recipe.mock.service";
 import {RecipeService} from "./recipes";
 import {ServiceFactory} from "./service.factory";
+import {RecipeViewComponent} from "./recipes/recipe-view.component";
+import {RecipesListComponent} from "./recipes/recipes-list.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -50,7 +52,9 @@ type StoreType = {
         HomeComponent,
         RecipesNewComponent,
         RecipesEditComponent,
+        RecipeViewComponent,
         RecipesByCategoryComponent,
+        RecipesListComponent,
         NoContent,
         XLarge
     ],

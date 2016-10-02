@@ -11,4 +11,6 @@ export abstract class RecipeService {
 
     abstract getRecipesByCategory(key:string, callback);
 
+    abstract getAllRecipes(callback);
+
 }

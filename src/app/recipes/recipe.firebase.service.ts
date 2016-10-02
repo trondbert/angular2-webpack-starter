@@ -11,7 +11,7 @@ export class RecipeFirebaseService extends RecipeService {
     constructor(private imageService:ImageService) {
         super();
     }
-    
+
     static getFirebaseRef(url) {
         return FirebaseFactory.getFirebaseRef(url);
     }
@@ -67,6 +67,15 @@ export class RecipeFirebaseService extends RecipeService {
             }
             else
                 console.log("DEBUG hero undefined");
+        });
+    }
+
+    getAllRecipes(callback) {
+        var thisService = this;
+        var recipesRef = RecipeFirebaseService.getFirebaseRef('recipes/');
+
+        recipesRef.on('child_added', function (data) {
+            thisService.recipeAdded(data, callback);
         });
     }
 
