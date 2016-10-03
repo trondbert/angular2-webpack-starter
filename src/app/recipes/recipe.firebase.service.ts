@@ -101,8 +101,8 @@ export class RecipeFirebaseService extends RecipeService {
             imageId: recipe.imageId,
             ingredients: recipe.transients.ingredients1 + "~*/|" + recipe.transients.ingredients2,
             instructions: recipe.instructions || "",
-            name: recipe.name || "",
-            tags: recipe.tags || "",
+            name: recipe.name,
+            tags: recipe.tags,
         };
         var tagsMap = RecipeFirebaseService.createTagsMap(forStorage.tags);
         for (let tagsKey of Object.keys(tagsMap)) {
@@ -121,6 +121,7 @@ export class RecipeFirebaseService extends RecipeService {
             this.imageService.saveImage(recipe.image, recipe.imageId, callbackImg);
         }
         else {
+            console.log("Saving only recipe");
             this.saveRecipeOnly(recipe, callback);
         }
     }
@@ -136,6 +137,7 @@ export class RecipeFirebaseService extends RecipeService {
         else {
             var recipesRef = RecipeFirebaseService.getFirebaseRef("recipes/");
             var recipeRef = recipesRef.push(RecipeFirebaseService.recipeForStorage(recipe));
+            recipe.key = recipeRef.key;
         }
         callback.call(this, recipe.key);
     }

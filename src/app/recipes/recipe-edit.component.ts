@@ -5,6 +5,7 @@ import {ImageService} from "../image.service";
 import {Recipe} from "./recipe";
 import {RecipeComponent} from "./recipe.component";
 import {RecipeService} from "./recipe.service";
+import {RecipeValidator} from "./recipe.validator";
 
 declare var $:any;
 
@@ -50,9 +51,9 @@ export class RecipesEditComponent extends RecipeComponent {
     }
     save() {
         this.errors = [];
-        var validationErrors = this.validate(this.recipe);
+        var validationErrors = new RecipeValidator().validate(this.recipe);
         if (validationErrors.length > 0) {
-            for (var error in validationErrors) {
+            for (let error of validationErrors) {
                 this.errors.push(error);
             }
             return;
@@ -61,15 +62,6 @@ export class RecipesEditComponent extends RecipeComponent {
         this.getRecipeService().saveRecipe(this.recipe, function(key) {
             thisComp.goToRecipe(thisComp.recipe, null);
         });
-    }
-
-    private validate(recipe:Recipe):string[] {
-        var errors:string[] = new Array<string>();
-        var tagList = recipe.tags.split(" ");
-        if (tagList.indexOf("middag") == -1 && tagList.indexOf("snacks") == -1) {
-            errors.push("Du må skrive 'middag' eller 'snacks' i 'Kategorier'");
-        }
-        return errors;
     }
 
     chooseImg() {

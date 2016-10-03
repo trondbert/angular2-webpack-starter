@@ -29,6 +29,7 @@ export class RecipesByCategoryComponent extends RecipesListComponent {
                 thisComp.recipesMap[recipe.key] = recipe;
             });
         });
+        window['recipes'] = thisComp.recipes;
     }
 
     ngOnDestroy() {

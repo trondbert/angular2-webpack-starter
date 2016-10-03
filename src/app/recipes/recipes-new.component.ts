@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Recipe} from "./recipe";
 import {RecipeService} from "./recipe.service";
 import {StaticData} from "../static.data";
+import {RecipeValidator} from "./recipe.validator";
 
 @Component({
   selector: 'recipes/new',
@@ -13,8 +14,8 @@ import {StaticData} from "../static.data";
 export class RecipesNewComponent implements OnInit {
 
   private recipe:Recipe;
-
   private placeholderImage;
+  private errors = [];
 
   constructor(private router:Router,
               private recipeService:RecipeService ) {
@@ -28,8 +29,12 @@ export class RecipesNewComponent implements OnInit {
 
   save() {
     var thiz = this;
+    this.errors = new RecipeValidator().validate(this.recipe);
+    if (this.errors.length > 0) {
+      return;
+    }
     var callback = function(recipeKey) {
-      let link = ['recipes/edit', {key: recipeKey}];
+      let link = ['recipes/' + recipeKey];
       thiz.router.navigate(link);
     };
     this.recipeService.saveRecipe(this.recipe, callback);
