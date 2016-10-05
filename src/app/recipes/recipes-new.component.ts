@@ -37,7 +37,7 @@ export class RecipesNewComponent implements OnInit {
       let link = ['recipes/' + recipeKey];
       thiz.router.navigate(link);
     };
-    this.recipeService.saveRecipe(this.recipe, callback);
+    this.recipeService.save(this.recipe, callback);
   }
 
   backToRecipes() {

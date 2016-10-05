@@ -1,0 +1,13 @@
+.beverage {
+    display: inline-block;
+    width: 32%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    cursor: hand;
+    vertical-align: top;
+}
+
+.beverage > img {
+    height: 200px;
+    cursor: pointer;
+}

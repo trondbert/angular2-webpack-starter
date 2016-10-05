@@ -33,16 +33,13 @@ export class FirebaseFactory {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
-            console.log(error);
         });
     }
 
     static logOut() {
         FirebaseFactory.initApp();
         this.dataService.auth().signOut().then(function() {
-            console.log("Logged out");
         }, function(error) {
-            console.log(error);
         });
     }
 

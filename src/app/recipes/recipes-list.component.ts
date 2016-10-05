@@ -32,7 +32,7 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
         super.ngOnInit();
         var thisComp = this;
         thisComp.recipes = [];
-        thisComp.getRecipeService().getAllRecipes(function(recipe) {
+        thisComp.getRecipeService().retrieveAll(function(recipe) {
             console.log("DEBUG Callback RecByCat " + recipe);
             thisComp.recipes.push(recipe);
             thisComp.recipesMap[recipe.key] = recipe;

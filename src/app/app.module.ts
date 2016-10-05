@@ -4,28 +4,24 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import {RouterModule} from '@angular/router';
 import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
-
-/*
- * Platform and Environment providers/directives/pipes
- */
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
-import { HomeComponent } from './home';
-import { About } from './about';
 import { NoContent } from './no-content';
-import { XLarge } from './home/x-large';
 import { RecipesNewComponent } from "./recipes";
 import {ImageService} from "./image.service";
 import {RecipesEditComponent} from "./recipes/recipe-edit.component";
 import {RecipesByCategoryComponent} from "./recipes/recipes-by-category.component";
-import {RecipeMockService} from "./recipes/recipe.mock.service";
 import {RecipeService} from "./recipes";
 import {ServiceFactory} from "./service.factory";
 import {RecipeViewComponent} from "./recipes/recipe-view.component";
 import {RecipesListComponent} from "./recipes/recipes-list.component";
+import {BeveragesListComponent} from "./beverages/beverages-list.component";
+import {BeverageService} from "./recipes/beverage.service";
+import {BeverageViewComponent} from "./beverages/beverage-view.component";
+import {BeverageEditComponent} from "./beverages/beverage-edit.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -33,6 +29,7 @@ const APP_PROVIDERS = [
     AppState,
     ImageService,
     { provide: RecipeService, useClass: ServiceFactory.getRecipeService() },
+    { provide: BeverageService, useClass: ServiceFactory.getBeverageService() },
 ];
 
 type StoreType = {
@@ -48,15 +45,15 @@ type StoreType = {
     bootstrap: [ App ],
     declarations: [
         App,
-        About,
-        HomeComponent,
         RecipesNewComponent,
         RecipesEditComponent,
         RecipeViewComponent,
         RecipesByCategoryComponent,
         RecipesListComponent,
+        BeveragesListComponent,
+        BeverageViewComponent,
+        BeverageEditComponent,
         NoContent,
-        XLarge
     ],
     imports: [ // import Angular's modules
         BrowserModule,

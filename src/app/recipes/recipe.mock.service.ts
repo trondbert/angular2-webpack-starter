@@ -20,23 +20,27 @@ export class RecipeMockService extends RecipeService {
         this.recipe1.transients.ingredients2 = "One line\nAnother line";
     }
 
-    deleteRecipe(recipe:Recipe):void {
+    remove(recipe:Recipe):void {
     }
 
-    getRecipe(key:string, callback):void {
+    retrieve(key:string, callback):void {
         if (key == "-abc1") {
             callback.call(this, this.recipe1);
         }
     }
 
-    saveRecipe(recipe:Recipe, callback):void {
+    save(recipe:Recipe, callback):void {
     }
 
-    getRecipesByCategory(category:string, callback) {
+    retrieveByCategory(category:string, callback) {
         callback.call(this, this.recipe1);
     }
 
-    getAllRecipes(callback) {
+    retrieveAll(callback) {
         callback.call(this, this.recipe1);
+    }
+
+    getBaseEntitiesUrl() {
+        return 'recipes';
     }
 }

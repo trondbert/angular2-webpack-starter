@@ -1,6 +1,7 @@
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
 import {Recipe} from "./recipes/recipe";
+import {Beverage} from "./recipes/beverage";
 
 export abstract class GenericComponent {
     
@@ -16,6 +17,18 @@ export abstract class GenericComponent {
 
     goBack() {
         this.getLocation().back();
+    }
+
+    goToBeverages() {
+        let link = ['/beverages'];
+        this.getRouter().navigate(link);
+    }
+
+    goToBeverage(beverage:Beverage, event) {
+        let link = ['/beverages/' + beverage.key];
+        this.getRouter().navigate(link);
+
+        event && event.preventDefault();
     }
 
     goToRecipes() {

@@ -1,15 +1,12 @@
 import {App} from "../app.component";
 import {Entity} from "../entity";
 
-export class Recipe extends Entity {
+export class Beverage extends Entity {
   key:string = "";
   name:string = "";
-  tags:string = "";
-  instructions = "";
+  comments:string = "";
   image = null;
   imageId = "";
   dateCreated = App.dateToString(new Date());
   dateModified = App.dateToString(new Date());
-
-  transients = {ingredients1: "", ingredients2: ""};
 }

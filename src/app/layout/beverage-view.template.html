@@ -1,0 +1,22 @@
+<article *ngIf="beverage" (window:keyup)="keyUp($event)">
+    <div class="detailTop">
+        <div class="detailLeftSide">
+            <div class="name">
+                {{beverage.name}}
+            </div>
+            <div class="imageBox">
+                <img [src]="beverage.image ? beverage.image.imageData : placeholderImage"
+                     class="imagePreview" />
+            </div>
+        </div>
+
+        <div class="detailRightSide">
+            <h3>Kommentarer:</h3>
+            <div [innerHTML]="withLineBreaks(beverage.comments)" class="comments"></div>
+        </div>
+    </div>
+
+    <div class="detailBottom">
+        <button (click)="editBeverage()">Rediger</button>
+    </div>
+</article>

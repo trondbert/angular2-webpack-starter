@@ -1,0 +1,56 @@
+.inputField {
+    clear: both;
+    padding: 0 0 1em 0;
+}
+
+.inputField > input {
+    width: 70%;
+    float: right;
+    font-size: 0.9em;
+}
+
+.detailTop {
+    margin-top: 1em;
+}
+
+.detailLeftSide {
+    display: inline-block;
+    width: 43%;
+    padding: 0.3em;
+    vertical-align: top;
+}
+
+.detailRightSide {
+    display: inline-block;
+    width: 55%;
+    padding: 0.3em;
+    vertical-align: top;
+}
+
+textarea.comments {
+    height: 18em;
+    display: inline-block;
+    width: 98%;
+}
+
+.imageBox {
+    position: relative;
+    cursor: hand;
+}
+
+.imageBox:hover > .imageText {
+    visibility: visible;
+}
+
+.imageText {
+    z-index: 3;
+    position: absolute;
+    font-size: 1.2em;
+    color: white;
+    background-color: black;
+    visibility: hidden;
+}
+
+.imageBox > img {
+    cursor: pointer;
+}

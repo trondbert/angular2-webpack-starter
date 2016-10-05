@@ -1,16 +1,15 @@
 import {Recipe} from "./recipe";
 import {Injectable} from "@angular/core";
 import {StorageService} from "../storage.service";
+import {Beverage} from "./beverage";
 
-export abstract class RecipeService extends StorageService {
+export abstract class BeverageService extends StorageService {
     
-    abstract remove(recipe:Recipe):void;
+    abstract remove(beverage:Beverage):void;
 
     abstract retrieve(key:string, callback):void;
 
-    abstract save(recipe:Recipe, callback):void;
-
-    abstract retrieveByCategory(key:string, callback);
+    abstract save(beverage:Beverage, callback):void;
 
     abstract retrieveAll(callback);
 }

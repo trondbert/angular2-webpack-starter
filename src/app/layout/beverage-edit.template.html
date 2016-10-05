@@ -1,0 +1,40 @@
+<article *ngIf="beverage" (keydown.enter)="keyDownEnter($event)">
+  <div class="detailTop">
+    <div class="detailLeftSide">
+
+      <div class="inputField">
+        <label for="name">Navn:</label>
+        <input [(ngModel)]="beverage.name" type="text" id="name"/>
+      </div>
+
+      <div class="imageBox">
+        <span class="imageText">{{beverage.image ? 'Endre bilde' : 'Legg til bilde'}}</span>
+        <img src="{{beverage.image ? beverage.image.imageData : placeholderImage}}"
+             class="imagePreview" (click)="chooseImg()"/>
+        <input type="file" id="imageChooser" (change)="imgChosen($event)" hidden/>
+      </div>
+    </div>
+
+    <div class="detailRightSide">
+      <div class="inputField">
+        <h3>Kommentarer:</h3>
+                <textarea [(ngModel)]="beverage.comments" id="beverageComments" class="comments"
+                          title="Kommentarer" (keyup.enter)="$event.preventDefault()"></textarea>
+      </div>
+    </div>
+  </div>
+
+  <div class="detailBottom">
+    <div *ngFor="let error of errors">
+      <i>{{error}}</i>
+    </div>
+
+    <div>
+      <button (click)="save()">{{beverage.$id ? 'Oppdater' : 'Lagre'}}</button>
+      <button (click)="goBack()">Tilbake</button>
+      <button (click)="goToBeverages()" class="newGroup">Til oppskrifter</button>
+      <button (click)="deletebeverage()">Slett</button>
+    </div>
+
+  </div>
+</article>

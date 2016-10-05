@@ -1,21 +1,21 @@
 import { Component, OnInit } from '@angular/core';
 
-import {RecipeService} from "./recipe.service";
-import {RecipeComponent} from "./recipe.component";
-import {Recipe} from "./recipe";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {StaticData} from "../static.data";
+import {BeverageComponent} from "./beverage.component";
+import {Beverage} from "../recipes/beverage";
+import {BeverageService} from "../recipes/beverage.service";
 declare var $:any;
 
 @Component({
-    selector: 'recipeView',
-    templateUrl: '../layout/recipe-view.template.html',
-    styleUrls: [ '../layout/app.style.css', '../layout/recipe-view.style.css']
+    selector: 'beverageView',
+    templateUrl: '../layout/beverage-view.template.html',
+    styleUrls: [ '../layout/app.style.css', '../layout/beverage-view.style.css']
 })
-export class RecipeViewComponent extends RecipeComponent implements OnInit {
+export class BeverageViewComponent extends BeverageComponent implements OnInit {
 
-    private recipe:Recipe;
+    private beverage:Beverage;
 
     placeholderImage = StaticData.placeholderImage;
     private sub:any;
@@ -23,10 +23,10 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
-                recipeService:RecipeService) {
+                beverageService:BeverageService) {
 
-        super("view", recipeService);
-        //TODO Delete recipe?
+        super("view", beverageService);
+        //TODO Delete?
     }
 
     ngOnInit() {
@@ -34,9 +34,9 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
         var thisComp = this;
         this.sub = this.route.params.subscribe(params => {
             let key = params['key'];
-            thisComp.getRecipeService().retrieve(key,
-                function (recipe) {
-                    thisComp.recipe = recipe;
+            thisComp.getBeverageService().retrieve(key,
+                function (beverage) {
+                    thisComp.beverage = beverage;
                 }
             );
         });
@@ -51,14 +51,14 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
     getLocation():Location {
         return this.location;
     }
-    getRecipe() {
-        return this.recipe;
+    getBeverage() {
+        return this.beverage;
     }
 
     keyUp(event) {
         if (event.key == "e") {
             event.preventDefault();
-            this.editRecipe();
+            this.editBeverage();
         }
     }
 }

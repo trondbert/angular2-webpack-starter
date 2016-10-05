@@ -24,7 +24,7 @@ export class RecipesByCategoryComponent extends RecipesListComponent {
         var thisComp = this;
         this.sub = this.getRoute().params.subscribe(params => {
             thisComp.recipes = [];
-            thisComp.getRecipeService().getRecipesByCategory(params['key'], function(recipe) {
+            thisComp.getRecipeService().retrieveByCategory(params['key'], function(recipe) {
                 thisComp.recipes.push(recipe);
                 thisComp.recipesMap[recipe.key] = recipe;
             });

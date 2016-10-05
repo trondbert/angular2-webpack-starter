@@ -15,7 +15,6 @@ export class ImageService {
             callback.call(this, null);
             return;
         }
-        console.log("imagekey: " + imageKey);
         var imageRef = this.getFirebaseRef('images/' + imageKey);
         imageRef.once("value", function (data) {
             var imageFb = data.val();

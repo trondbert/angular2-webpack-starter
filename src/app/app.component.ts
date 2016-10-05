@@ -27,7 +27,7 @@ import {FirebaseFactory} from "./firebase.factory";
                     </ul>
                 </li>
                 <li><a [routerLink]="['/recipes/category/snacks']">Snacks</a></li>
-                <li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Vin</a>
+                <li><a [routerLink]="['/beverages']">Vin</a>
                     <ul><li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li></ul>
                 </li>
                 <li class="moreOptions"><a href="#">&#x2295;</a>

@@ -2,21 +2,20 @@ import {Component} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {ImageService} from "../image.service";
-import {Recipe} from "./recipe";
-import {RecipeComponent} from "./recipe.component";
-import {RecipeService} from "./recipe.service";
-import {RecipeValidator} from "./recipe.validator";
+import {BeverageComponent} from "./beverage.component";
+import {Beverage} from "../recipes/beverage";
+import {BeverageService} from "../recipes/beverage.service";
 
 declare var $:any;
 
 @Component({
-    selector: 'recipeEdit',
-    templateUrl: '../layout/recipe-edit.template.html',
-    styleUrls: ['../layout/app.style.css', '../layout/recipe-edit.style.css']
+    selector: 'beverageEdit',
+    templateUrl: '../layout/beverage-edit.template.html',
+    styleUrls: ['../layout/app.style.css', '../layout/beverage-edit.style.css']
 })
-export class RecipesEditComponent extends RecipeComponent {
+export class BeverageEditComponent extends BeverageComponent {
 
-    private recipe:Recipe;
+    private beverage:Beverage;
     private errors = [];
 
     placeholderImage = ImageService.placeholderImage;
@@ -26,17 +25,17 @@ export class RecipesEditComponent extends RecipeComponent {
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
-                recipeService:RecipeService) {
-        super("edit", recipeService);
+                beverageService:BeverageService) {
+        super("edit", beverageService);
     }
 
     ngOnInit() {
         var thisComp = this;
         this.sub = this.route.params.subscribe(params => {
             let key = params['key'];
-            this.getRecipeService().retrieve(key,
-                function (recipe) {
-                    thisComp.recipe = recipe;
+            this.getBeverageService().retrieve(key,
+                function (beverage) {
+                    thisComp.beverage = beverage;
                 }
             );
         });
@@ -51,7 +50,7 @@ export class RecipesEditComponent extends RecipeComponent {
     }
     save() {
         this.errors = [];
-        var validationErrors = new RecipeValidator().validate(this.recipe);
+        var validationErrors = [];//new BeverageValidator().validate(this.beverage);
         if (validationErrors.length > 0) {
             for (let error of validationErrors) {
                 this.errors.push(error);
@@ -59,8 +58,8 @@ export class RecipesEditComponent extends RecipeComponent {
             return;
         }
         var thisComp = this;
-        this.getRecipeService().save(this.recipe, function(key) {
-            thisComp.goToRecipe(thisComp.recipe, null);
+        this.getBeverageService().save(this.beverage, function(key) {
+            thisComp.goToBeverage(thisComp.beverage, null);
         });
     }
 
@@ -76,7 +75,7 @@ export class RecipesEditComponent extends RecipeComponent {
         reader.onloadend = function (e:ProgressEvent) {
             var hasResult:FileReader = <FileReader>(e.target);
             //noinspection TypeScriptUnresolvedVariable
-            thiz.recipe.image = {"imageData": hasResult.result};
+            thiz.beverage.image = {"imageData": hasResult.result};
         };
         reader.readAsDataURL(event.target.files[0]);
     }
@@ -88,8 +87,8 @@ export class RecipesEditComponent extends RecipeComponent {
     getLocation():Location {
         return this.location;
     }
-    getRecipe() {
-        return this.recipe;
+    getBeverage() {
+        return this.beverage;
     }
 
     getTagMap(tags) {

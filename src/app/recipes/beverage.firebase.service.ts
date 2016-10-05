@@ -7,18 +7,21 @@ import {RecipeService} from "./recipe.service";
 import {FirebaseService} from "./firebase.service";
 import {FirebaseRecipeConverter} from "./firebase.recipe.converter";
 import {Entity} from "../entity";
+import {Beverage} from "./beverage";
+import {BeverageService} from "./beverage.service";
+import {FirebaseBeverageConverter} from "./firebase.beverage.converter";
 
 @Injectable()
-export class RecipeFirebaseService extends RecipeService {
+export class BeverageFirebaseService extends BeverageService {
 
     private firebaseService : FirebaseService;
 
     constructor(private imageService:ImageService) {
         super();
         this.firebaseService = new FirebaseService(
-            "recipes",
+            "beverages",
             this.imageService,
-            new FirebaseRecipeConverter());
+            new FirebaseBeverageConverter());
     }
 
     retrieve(key:string, callback):void {
@@ -31,13 +34,11 @@ export class RecipeFirebaseService extends RecipeService {
         this.firebaseService.retrieveByCategory(category, callback);
     }
 
-    save(recipe:Recipe, callback) {
-        this.firebaseService.save(recipe, callback);
+    save(beverage:Beverage, callback) {
+        this.firebaseService.save(beverage, callback);
     }
 
-    remove(recipe:Recipe) {
-        var recipesRef = FirebaseFactory.getFirebaseRef("recipes/");
-        recipesRef.child(recipe.key).remove();
+    remove(beverage:Beverage) {
+        this.firebaseService.remove(beverage);
     }
-
 }
