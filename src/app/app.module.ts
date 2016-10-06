@@ -10,18 +10,11 @@ import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
 import { NoContent } from './no-content';
-import { RecipesNewComponent } from "./recipes";
+import { RecipesEditComponent, RecipesListComponent, RecipesNewComponent, 
+         RecipeViewComponent, RecipesByCategoryComponent, RecipeService } from "./recipes";
+import {BeveragesListComponent,BeverageViewComponent,BeverageEditComponent,BeverageService} from "./beverages";
 import {ImageService} from "./image.service";
-import {RecipesEditComponent} from "./recipes/recipe-edit.component";
-import {RecipesByCategoryComponent} from "./recipes/recipes-by-category.component";
-import {RecipeService} from "./recipes";
 import {ServiceFactory} from "./service.factory";
-import {RecipeViewComponent} from "./recipes/recipe-view.component";
-import {RecipesListComponent} from "./recipes/recipes-list.component";
-import {BeveragesListComponent} from "./beverages/beverages-list.component";
-import {BeverageService} from "./recipes/beverage.service";
-import {BeverageViewComponent} from "./beverages/beverage-view.component";
-import {BeverageEditComponent} from "./beverages/beverage-edit.component";
 
 // Application wide providers
 const APP_PROVIDERS = [

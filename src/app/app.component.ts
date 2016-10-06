@@ -63,8 +63,6 @@ export class App {
     FirebaseFactory.onAuth(function(user) {
       if (user) {
         thisComp.user = user;
-        let link = ['/recipes'];
-        thisComp.router.navigate(link);
       }
       else {
         thisComp.user = null;

@@ -6,4 +6,5 @@ export * from './recipes-by-category.component';
 export * from './recipe-edit.component';
 export * from './recipes-list.component';
 export * from './recipes-new.component';
+export * from './recipe-view.component';
 export * from './recipe';

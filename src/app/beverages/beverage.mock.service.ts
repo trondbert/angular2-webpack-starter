@@ -1,8 +1,8 @@
 import {Injectable} from "@angular/core";
 import {ImageService} from "../image.service";
 import {StaticData} from "../static.data";
-import {BeverageService} from "../recipes/beverage.service";
-import {Beverage} from "../recipes/beverage";
+import {Beverage} from "./beverage";
+import {BeverageService} from "./beverage.service";
 
 @Injectable()
 export class BeverageMockService extends BeverageService {

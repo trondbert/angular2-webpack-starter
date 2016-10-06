@@ -4,9 +4,8 @@ import {Recipe} from "./recipe";
 import {ImageService} from "../image.service";
 import {FirebaseFactory} from "../firebase.factory";
 import {RecipeService} from "./recipe.service";
-import {FirebaseService} from "./firebase.service";
 import {FirebaseRecipeConverter} from "./firebase.recipe.converter";
-import {Entity} from "../entity";
+import {FirebaseService} from "../firebase.service";
 
 @Injectable()
 export class RecipeFirebaseService extends RecipeService {

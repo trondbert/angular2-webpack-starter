@@ -11,6 +11,7 @@ import {BeverageViewComponent} from "./beverages/beverage-view.component";
 import {BeverageEditComponent} from "./beverages/beverage-edit.component";
 
 export const ROUTES: Routes = [
+  { path : '', pathMatch: 'full',       redirectTo: '/recipes/category/middag'},
   { path : 'recipes',                   component : RecipesListComponent},
   { path : 'recipes/new',               component : RecipesNewComponent},
   { path : 'recipes/:key/edit',         component : RecipesEditComponent},

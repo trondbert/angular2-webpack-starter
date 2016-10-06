@@ -1,8 +1,8 @@
-import {StorageService} from "../storage.service";
-import {Entity} from "../entity";
-import {ImageService} from "../image.service";
-import {FirebaseFactory} from "../firebase.factory";
-import {FirebaseConverter} from "../firebase.converter";
+import {ImageService} from "./image.service";
+import {FirebaseConverter} from "./firebase.converter";
+import {StorageService} from "./storage.service";
+import {FirebaseFactory} from "./firebase.factory";
+import {Entity} from "./entity";
 
 export class FirebaseService extends StorageService {
     

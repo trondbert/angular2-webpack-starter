@@ -1,6 +1,7 @@
 import {GenericComponent} from "../generic.component";
-import {BeverageService} from "../recipes/beverage.service";
-import {Beverage} from "../recipes/beverage";
+import {BeverageService} from "./beverage.service";
+import {Beverage} from "./beverage";
+
 
 export abstract class BeverageComponent extends GenericComponent {
 

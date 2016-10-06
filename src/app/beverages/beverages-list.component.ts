@@ -3,8 +3,8 @@ import {OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router"
 import {Location} from "@angular/common";
 import {GenericComponent} from "../generic.component";
-import {BeverageService} from "../recipes/beverage.service";
 import {StaticData} from "../static.data";
+import {BeverageService} from "./beverage.service";
 
 @Component({
     selector: 'beverages',

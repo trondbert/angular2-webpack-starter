@@ -8,17 +8,12 @@ export class FirebaseFactory {
         if (FirebaseFactory.dataService != null) return;
 
         var config = {
-            apiKey: "AIzaSyCIO8byvnKVyB7fC-9KPySuSFvrJUdfk6w",
-            authDomain: "test-heroes-9b13f.firebaseapp.com",
-            databaseURL: "https://test-heroes-9b13f.firebaseio.com",
-            storageBucket: "test-heroes-9b13f.appspot.com",
+            apiKey: "AIzaSyAZE8LGv8GVDsh5jt9bIz6hmH55RWjxSSE",
+            authDomain: "kokogvin-f92bc.firebaseapp.com",
+            databaseURL: "https://kokogvin-f92bc.firebaseio.com",
+            storageBucket: "kokogvin-f92bc.appspot.com",
+            messagingSenderId: "970455136824"
         };
-        // var config = {
-        //   apiKey: "AIzaSyB7rqRVUb2L84B52gfKniBqGkGOzJf0JtA",
-        //   authDomain: "blinding-fire-2931.firebaseapp.com",
-        //   databaseURL: "https://blinding-fire-2931.firebaseio.com",
-        //   storageBucket: "blinding-fire-2931.appspot.com",
-        // };
         FirebaseFactory.dataService = Firebase.initializeApp(config);
     }
 

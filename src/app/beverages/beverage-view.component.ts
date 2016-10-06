@@ -4,8 +4,8 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {StaticData} from "../static.data";
 import {BeverageComponent} from "./beverage.component";
-import {Beverage} from "../recipes/beverage";
-import {BeverageService} from "../recipes/beverage.service";
+import {Beverage} from "./beverage";
+import {BeverageService} from "./beverage.service";
 declare var $:any;
 
 @Component({
