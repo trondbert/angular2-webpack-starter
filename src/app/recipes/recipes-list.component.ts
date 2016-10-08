@@ -14,26 +14,23 @@ import {AppState} from "../app.service";
 })
 export class RecipesListComponent extends GenericComponent implements OnInit {
 
-    private recipeService: RecipeService;
-    protected recipes = [];
+    private recipes = [];
 
-    protected recipesMap:{[key:string]:Recipe;} = {};
+    type = "recList";
 
-    constructor(recipeService:RecipeService,
+    constructor(private recipeService:RecipeService,
                 private route:ActivatedRoute,
                 private router:Router,
                 private location:Location,
                 private appState:AppState) {
         super();
-        this.recipeService = recipeService;
     }
 
     ngOnInit() {
         super.ngOnInit();
     }
-
     ngOnDestroy() {
-
+        super.ngOnDestroy();
     }
 
     getAppState(): AppState {
@@ -50,26 +47,45 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
     getRecipes() {
         var thiz = this;
         this.recipes = [];
-        this.getRecipeService().retrieveAll(function (recipe) {
-            console.log("new recipe " + recipe.key);
+        this.recipeService.retrieveAll(function (recipe) {
             thiz.recipes.push(recipe);
-            thiz.recipesMap[recipe.key] = recipe;
         });
     }
 
-    getRecipeService() {
-        return this.recipeService;
+    getLocation() : Location { return this.location; }
+    getRouter() { return this.router; }
+    getRoute() { return this.route; }
+
+    adhoc() {
+        var promise:Promise<number> = new Promise((resolve, reject) => {
+            console.log("About to run retrieve");
+            this.recipeService.retrieve("-JbXOVSHZ1xZTecumGgt", function(recipe) {
+                console.log("Found recipe");
+                resolve(123);
+                resolve(456);
+            });
+        });
+        promise.then((res) => { console.log(res); });
+
+        var mini = new MiniClass();
+        var meth = mini.getMeth();
+
+        //console.log(meth.call(this)); kalt med this, så er variabelen undefined
+        console.log(meth()); //kalt uten argumenter
+    }
+}
+
+class MiniClass {
+
+    a: string = "foo";
+
+    constructor() {}
+
+    getMeth() {
+        return this.getA;
     }
 
-    getLocation() : Location {
-        return this.location;
-    }
-
-    getRouter() {
-        return this.router;
-    }
-
-    getRoute() {
-        return this.route;
+    getA() {
+        return this.a;
     }
 }

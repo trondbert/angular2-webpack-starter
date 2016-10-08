@@ -24,23 +24,16 @@ export class FirebaseFactory {
 
     static logIn(password) {
         FirebaseFactory.initApp();
-        this.dataService.auth().signInWithEmailAndPassword("trondvalen@gmail.com", password)
-            .then(function (val) {
-                console.log(val);
-            });
+        this.dataService.auth().signInWithEmailAndPassword("trondvalen@gmail.com", password);
     }
 
     static logOut() {
         FirebaseFactory.initApp();
-        this.dataService.auth().signOut().then(function() {
-        }, function(error) {
-        });
+        this.dataService.auth().signOut();
     }
 
     static onAuth(callback) {
         FirebaseFactory.initApp();
-        this.dataService.auth().onAuthStateChanged(function(user) {
-            callback(user);
-        });
+        this.dataService.auth().onAuthStateChanged(function(user) { callback(user) });
     }
 }

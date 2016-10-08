@@ -4,15 +4,34 @@ import {Recipe} from "./recipes";
 import {Beverage} from "./beverages";
 import {StaticData} from "./static.data";
 import {AppState} from "./app.service";
+import {BehaviorSubject} from "rxjs/Rx";
 
 export abstract class GenericComponent {
 
     protected placeholderImage = StaticData.placeholderImage;
 
+    private isSubscribed = false;
+
+    type = "generic";
+
     ngOnInit() {
-        this.getAppState().userSubject.subscribe(x => this.onUserChanged(x),
-            e =>  console.log('Error related to user.subscribe: %s', e),
-            () => console.log('onCompleted user.subscribe'));
+        if (!this.isSubscribed) {
+            console.log("Subscribe" + this["type"]);
+            this.getAppState().userSubject.subscribe(x => this.onUserChanged(x),
+                e => console.log('Error related to user.subscribe: %s', e),
+                () => console.log('onCompleted user.subscribe'));
+            this.isSubscribed = true;
+        }
+    }
+    ngOnDestroy() {
+        console.log("Unsubscribe" + this["type"]);
+        if (this.isSubscribed) {
+            var currentUser = this.getAppState().userSubject.getValue();
+            this.getAppState().userSubject.complete();
+
+            this.getAppState().userSubject = new BehaviorSubject<string>(currentUser);
+            this.isSubscribed = false;
+        }
     }
 
     abstract getRouter() : Router;

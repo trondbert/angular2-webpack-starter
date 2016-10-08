@@ -31,6 +31,7 @@ export class BeverageViewComponent extends BeverageComponent implements OnInit {
         super.ngOnInit();
     }
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
     }
 

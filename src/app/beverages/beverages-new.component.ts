@@ -25,7 +25,11 @@ export class BeveragesNewComponent extends GenericComponent implements OnInit {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.beverage = new Beverage();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
     }
 
     getAppState(): AppState {

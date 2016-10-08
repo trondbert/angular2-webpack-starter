@@ -33,8 +33,8 @@ export class RecipesEditComponent extends RecipeComponent {
     ngOnInit() {
         super.ngOnInit();
     }
-
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
     }
 

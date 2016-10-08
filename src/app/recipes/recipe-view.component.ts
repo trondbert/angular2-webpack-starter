@@ -31,6 +31,7 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
         super.ngOnInit();
     }
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
     }
 

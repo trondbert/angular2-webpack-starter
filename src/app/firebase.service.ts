@@ -37,6 +37,12 @@ export class FirebaseService extends StorageService {
         var fbCallback = function (data) {
             thiz.entityAdded(data, callback);
         };
+        /*
+        firebase gir deg data, med val() og key
+        trekk ut key og val fra den
+        oppfyll promise
+         */
+
         fbRef.off('child_added', fbCallback); //TODO virker ikke, det er fortsatt flere lyttere på ressursen
         fbRef.on('child_added', fbCallback);
     }

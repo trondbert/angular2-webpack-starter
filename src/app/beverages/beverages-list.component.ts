@@ -27,6 +27,9 @@ export class BeveragesListComponent extends GenericComponent implements OnInit {
     ngOnInit() {
         super.ngOnInit();
     }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
 
     getAppState(): AppState {
         return this.appState;

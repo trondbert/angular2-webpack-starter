@@ -30,7 +30,11 @@ export class RecipesNewComponent extends GenericComponent implements OnInit {
     }
 
     ngOnInit() {
+        super.ngOnInit();
         this.recipe = new Recipe();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
     }
 
     getRouter():Router {

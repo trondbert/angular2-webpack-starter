@@ -5,7 +5,7 @@ import {AppState} from "../app.service";
 
 export abstract class RecipeComponent extends GenericComponent {
 
-    protected recipe:Recipe;
+    protected recipe: Recipe;
 
     constructor(private mode:string,
                 private recipeService:RecipeService,
@@ -15,6 +15,9 @@ export abstract class RecipeComponent extends GenericComponent {
 
     ngOnInit() {
         super.ngOnInit();
+    }
+    ngOnDestroy() {
+        super.ngOnDestroy();
     }
 
     getAppState(): AppState {

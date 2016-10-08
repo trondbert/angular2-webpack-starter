@@ -4,22 +4,26 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {RecipeService} from "./recipe.service";
 import {AppState} from "../app.service";
+import {GenericComponent} from "../generic.component";
 
 @Component({
     selector: 'recipesByCategory',
     templateUrl: '../layout/recipes.template.html',
     styleUrls: ['../layout/app.style.css', '../layout/recipes.style.css']
 })
-export class RecipesByCategoryComponent extends RecipesListComponent {
+export class RecipesByCategoryComponent extends GenericComponent {
 
     private sub:any;
+    private recipes;
 
-    constructor(router:Router,
-                route:ActivatedRoute,
-                location:Location,
-                recipeService:RecipeService,
-                appState:AppState) {
-        super(recipeService, route, router, location, appState);
+    type = "bycat";
+
+    constructor(private router:Router,
+                private route:ActivatedRoute,
+                private location:Location,
+                private recipeService:RecipeService,
+                private appState:AppState) {
+        super();
     }
 
     ngOnInit() {
@@ -27,11 +31,14 @@ export class RecipesByCategoryComponent extends RecipesListComponent {
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
     }
 
     onUserChanged(newUser:string) {
+        console.log("User changed: " + newUser);
         if (newUser != null) {
+            window["hits"] = window["hits"] ? window["hits"] + 1 : 1;
             this.sub && this.sub.unsubscribe();
             this.getRecipes();
         }
@@ -39,13 +46,16 @@ export class RecipesByCategoryComponent extends RecipesListComponent {
 
     getRecipes() {
         var thisComp = this;
-
         this.sub = this.getRoute().params.subscribe(params => {
             thisComp.recipes = [];
-            thisComp.getRecipeService().retrieveByCategory(params['key'], function(recipe) {
+            thisComp.recipeService.retrieveByCategory(params['key'], function(recipe) {
                 thisComp.recipes.push(recipe);
-                thisComp.recipesMap[recipe.key] = recipe;
             });
         });
     }
+
+    getAppState()               { return this.appState; }
+    getLocation() : Location    { return this.location; }
+    getRouter()                 { return this.router; }
+    getRoute()                  { return this.route; }
 }

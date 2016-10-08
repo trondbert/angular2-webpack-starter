@@ -33,6 +33,7 @@ export class BeverageEditComponent extends BeverageComponent {
         super.ngOnInit();
     }
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
     }
 

@@ -1,0 +1,26 @@
+<div class="siteHeader"><h1>{{name}}</h1>
+    <nav>
+        <ul><li><a [routerLink]="['/recipes/category/middag']">Middag</a>
+            <ul><li><a [routerLink]="['/recipes/category/middag&fisk']">Fisk</a></li>
+                <li><a [routerLink]="['/recipes/category/middag&kjoett']">Kjøtt</a></li>
+                <li><a [routerLink]="['/recipes/category/middag&vegetar']">Vegetar</a></li>
+            </ul>
+        </li>
+            <li><a [routerLink]="['/recipes/category/snacks']">Snacks</a></li>
+            <li><a [routerLink]="['/beverages']">Vin</a></li>
+            <li class="moreOptions"><a href="#">&#x2295;</a>
+                <ul><li><a [routerLink]="['./recipes/new']">Ny&nbsp;oppskrift</a></li>
+                    <li><a [routerLink]="['/beverages/new']">Ny vin</a></li>
+                    <li><a [routerLink]="['/recipes']">Alle oppskrifter</a></li>
+                    <li *ngIf="user" class="loggUt"><a (click)="logOut()">Logg ut</a></li>
+                </ul>
+            </li>
+            <li></li>
+            <li class ="loggInn">
+                <input *ngIf="!user" #box type="text" size="12" placeholder="Passord her..."
+                       (keyup.enter)="logIn(box.value)" (blur)="logIn(box.value)"/>
+            </li>
+        </ul>
+    </nav>
+</div>
+<router-outlet></router-outlet>

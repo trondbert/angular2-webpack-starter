@@ -15,6 +15,9 @@ export abstract class BeverageComponent extends GenericComponent {
     ngOnInit() {
         super.ngOnInit();
     }
+    ngOnDestroy() {
+        super.ngOnDestroy();
+    }
 
     getAppState(): AppState {
         return this.appState;
