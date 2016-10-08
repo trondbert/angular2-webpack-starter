@@ -24,11 +24,10 @@ export class FirebaseFactory {
 
     static logIn(password) {
         FirebaseFactory.initApp();
-        this.dataService.auth().signInWithEmailAndPassword("trondvalen@gmail.com", password).catch(function(error) {
-            // Handle Errors here.
-            var errorCode = error.code;
-            var errorMessage = error.message;
-        });
+        this.dataService.auth().signInWithEmailAndPassword("trondvalen@gmail.com", password)
+            .then(function (val) {
+                console.log(val);
+            });
     }
 
     static logOut() {

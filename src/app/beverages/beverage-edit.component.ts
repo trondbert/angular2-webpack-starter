@@ -5,6 +5,7 @@ import {ImageService} from "../image.service";
 import {BeverageComponent} from "./beverage.component";
 import {Beverage} from "./beverage";
 import {BeverageService} from "./beverage.service";
+import {AppState} from "../app.service";
 
 declare var $:any;
 
@@ -18,30 +19,41 @@ export class BeverageEditComponent extends BeverageComponent {
     private beverage:Beverage;
     private errors = [];
 
-    placeholderImage = ImageService.placeholderImage;
-
     private sub:any;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
-                beverageService:BeverageService) {
-        super("edit", beverageService);
+                beverageService:BeverageService,
+                appState:AppState) {
+        super("edit", beverageService, appState);
     }
 
     ngOnInit() {
+        super.ngOnInit();
+    }
+    ngOnDestroy() {
+        this.sub && this.sub.unsubscribe();
+    }
+
+    onUserChanged(newUser:string) {
+        if (newUser != null) {
+            this.sub && this.sub.unsubscribe();
+            this.retrieveBeverage();
+        }
+    }
+
+    retrieveBeverage() {
+        this.beverage = null;
         var thisComp = this;
         this.sub = this.route.params.subscribe(params => {
             let key = params['key'];
-            this.getBeverageService().retrieve(key,
+            thisComp.getBeverageService().retrieve(key,
                 function (beverage) {
                     thisComp.beverage = beverage;
                 }
             );
         });
-    }
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     keyDownEnter(event) {

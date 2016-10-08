@@ -1,22 +1,32 @@
 import {Router} from "@angular/router";
 import {Location} from "@angular/common";
-import {Recipe} from "./recipes/recipe";
-import {Beverage} from "./beverages/beverage";
+import {Recipe} from "./recipes";
+import {Beverage} from "./beverages";
+import {StaticData} from "./static.data";
+import {AppState} from "./app.service";
 
 export abstract class GenericComponent {
-    
+
+    protected placeholderImage = StaticData.placeholderImage;
+
     ngOnInit() {
+        this.getAppState().userSubject.subscribe(x => this.onUserChanged(x),
+            e =>  console.log('Error related to user.subscribe: %s', e),
+            () => console.log('onCompleted user.subscribe'));
     }
 
     abstract getRouter() : Router;
     abstract getLocation(): Location;
+    abstract getAppState(): AppState;
+
+    protected onUserChanged(newUser:string) {}
 
     deleteRecipe() {
         throw "Not implemented";
     }
 
     goBack() {
-        this.getLocation().back();
+        this.getLocation().back(); //TODO virker ikke
     }
 
     goToBeverages() {

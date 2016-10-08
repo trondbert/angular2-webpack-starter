@@ -1,6 +1,6 @@
-import {RecipeMockService} from "./recipes/recipe.mock.service";
-import {RecipeFirebaseService} from "./recipes/recipe.firebase.service";
-import {BeverageFirebaseService} from "./beverages/beverage.firebase.service";
+import {RecipeMockService} from "./recipes";
+import {RecipeFirebaseService} from "./recipes";
+import {BeverageFirebaseService} from "./beverages";
 
 export class ServiceFactory {
 

@@ -1,7 +1,5 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import {FirebaseFactory} from "./firebase.factory";
-
-import {StaticData} from "./static.data";
 
 @Injectable()
 export class ImageService {
@@ -27,6 +25,7 @@ export class ImageService {
     saveImage(image, imageKey, callback) {
         if (imageKey) {
             var imagesRef = this.getFirebaseRef("images/");
+            
             //noinspection TypeScriptUnresolvedFunction
             imagesRef.child(imageKey).set(image);
             callback.call(this, imageKey);
@@ -37,6 +36,4 @@ export class ImageService {
             callback.call(this, ref.key);
         }
     }
-
-    static placeholderImage = StaticData.placeholderImage;
 }

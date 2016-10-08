@@ -27,12 +27,10 @@ import {FirebaseFactory} from "./firebase.factory";
                     </ul>
                 </li>
                 <li><a [routerLink]="['/recipes/category/snacks']">Snacks</a></li>
-                <li><a [routerLink]="['/beverages']">Vin</a>
-                    <ul><li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li></ul>
-                </li>
+                <li><a [routerLink]="['/beverages']">Vin</a></li>
                 <li class="moreOptions"><a href="#">&#x2295;</a>
                     <ul><li><a [routerLink]="['./recipes/new']">Ny&nbsp;oppskrift</a></li>
-                        <li><a [routerLink]="['/recipes/category/TODOvinEntitet']">Ny vin</a></li>
+                        <li><a [routerLink]="['/beverages/new']">Ny vin</a></li>
                         <li><a [routerLink]="['/recipes']">Alle oppskrifter</a></li>
                         <li *ngIf="user" class="loggUt"><a (click)="logOut()">Logg ut</a></li>
                     </ul>
@@ -44,6 +42,9 @@ import {FirebaseFactory} from "./firebase.factory";
                 </li>
             </ul>
         </nav>
+        User: {{user}}
+          <button (click)="setUserTrond()">SetUserTrond</button>
+          <button (click)="setUserNull()">SetUserNull</button>
         </div>
         <router-outlet></router-outlet>
   `
@@ -53,7 +54,7 @@ export class App {
   user = null;
 
   constructor(public appState: AppState, public router:Router) {
-
+    
   }
 
   ngOnInit() {
@@ -62,9 +63,11 @@ export class App {
     var thisComp = this;
     FirebaseFactory.onAuth(function(user) {
       if (user) {
-        thisComp.user = user;
+        thisComp.appState.userSubject.next(user.email);
+        thisComp.user = user.email;
       }
       else {
+        thisComp.appState.userSubject.next(null);
         thisComp.user = null;
       }
     });
@@ -76,6 +79,13 @@ export class App {
 
   logOut() {
     FirebaseFactory.logOut();
+  }
+
+  setUserTrond() {
+    this.appState.userSubject.next("Trond");
+  }
+  setUserNull() {
+    this.appState.userSubject.next(null);
   }
 
   static dateToString(date) {

@@ -6,6 +6,7 @@ import {StaticData} from "../static.data";
 import {BeverageComponent} from "./beverage.component";
 import {Beverage} from "./beverage";
 import {BeverageService} from "./beverage.service";
+import {AppState} from "../app.service";
 declare var $:any;
 
 @Component({
@@ -16,21 +17,32 @@ declare var $:any;
 export class BeverageViewComponent extends BeverageComponent implements OnInit {
 
     private beverage:Beverage;
-
-    placeholderImage = StaticData.placeholderImage;
     private sub:any;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
-                beverageService:BeverageService) {
-
-        super("view", beverageService);
-        //TODO Delete?
+                beverageService:BeverageService,
+                appState:AppState) {
+        super("view", beverageService, appState);
     }
 
     ngOnInit() {
         super.ngOnInit();
+    }
+    ngOnDestroy() {
+        this.sub && this.sub.unsubscribe();
+    }
+
+    onUserChanged(newUser:string) {
+        if (newUser != null) {
+            this.sub && this.sub.unsubscribe();
+            this.retrieveBeverage();
+        }
+    }
+
+    retrieveBeverage() {
+        this.beverage = null;
         var thisComp = this;
         this.sub = this.route.params.subscribe(params => {
             let key = params['key'];
@@ -40,9 +52,6 @@ export class BeverageViewComponent extends BeverageComponent implements OnInit {
                 }
             );
         });
-    }
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     getRouter():Router {

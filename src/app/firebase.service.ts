@@ -34,9 +34,11 @@ export class FirebaseService extends StorageService {
         var thiz = this;
         var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/');
 
-        fbRef.on('child_added', function (data) {
+        var fbCallback = function (data) {
             thiz.entityAdded(data, callback);
-        });
+        };
+        fbRef.off('child_added', fbCallback); //TODO virker ikke, det er fortsatt flere lyttere på ressursen
+        fbRef.on('child_added', fbCallback);
     }
 
     entityAdded(data, callback) {
@@ -99,3 +101,4 @@ export class FirebaseService extends StorageService {
         fbRef.child(entity.key).remove();
     }
 }
+

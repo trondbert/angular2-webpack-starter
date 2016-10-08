@@ -6,6 +6,7 @@ import {Recipe} from "./recipe";
 import {RecipeComponent} from "./recipe.component";
 import {RecipeService} from "./recipe.service";
 import {RecipeValidator} from "./recipe.validator";
+import {AppState} from "../app.service";
 
 declare var $:any;
 
@@ -16,21 +17,36 @@ declare var $:any;
 })
 export class RecipesEditComponent extends RecipeComponent {
 
-    private recipe:Recipe;
+    protected recipe:Recipe;
     private errors = [];
-
-    placeholderImage = ImageService.placeholderImage;
 
     private sub:any;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
-                recipeService:RecipeService) {
-        super("edit", recipeService);
+                recipeService:RecipeService,
+                appState:AppState) {
+        super("edit", recipeService, appState);
     }
 
     ngOnInit() {
+        super.ngOnInit();
+    }
+
+    ngOnDestroy() {
+        this.sub && this.sub.unsubscribe();
+    }
+
+    onUserChanged(newUser:string) {
+        if (newUser != null) {
+            this.sub && this.sub.unsubscribe();
+            this.retrieveRecipe();
+        }
+    }
+
+    retrieveRecipe() {
+        this.recipe = null;
         var thisComp = this;
         this.sub = this.route.params.subscribe(params => {
             let key = params['key'];
@@ -40,9 +56,6 @@ export class RecipesEditComponent extends RecipeComponent {
                 }
             );
         });
-    }
-    ngOnDestroy() {
-        this.sub.unsubscribe();
     }
 
     keyDownEnter(event) {
@@ -88,9 +101,6 @@ export class RecipesEditComponent extends RecipeComponent {
     getLocation():Location {
         return this.location;
     }
-    getRecipe() {
-        return this.recipe;
-    }
 
     getTagMap(tags) {
         for (let tag of tags.split(/ +/)) {
@@ -98,5 +108,4 @@ export class RecipesEditComponent extends RecipeComponent {
             console.log(tagFixed);
         }
     }
-
 }

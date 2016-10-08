@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import {Component, SimpleChange, SimpleChanges, Input} from '@angular/core';
 import {Recipe} from "./recipe";
 import {GenericComponent} from "../generic.component";
 import {OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router"
 import {Location} from "@angular/common";
 import {RecipeService} from "./recipe.service";
-import {StaticData} from "../static.data";
+import {AppState} from "../app.service";
 
 @Component({
     selector: 'recipes',
@@ -18,28 +18,43 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
     protected recipes = [];
 
     protected recipesMap:{[key:string]:Recipe;} = {};
-    protected placeholderImage;
 
     constructor(recipeService:RecipeService,
                 private route:ActivatedRoute,
                 private router:Router,
-                private location:Location) {
+                private location:Location,
+                private appState:AppState) {
         super();
         this.recipeService = recipeService;
     }
 
     ngOnInit() {
         super.ngOnInit();
-        var thisComp = this;
-        thisComp.recipes = [];
-        thisComp.getRecipeService().retrieveAll(function(recipe) {
-            console.log("DEBUG Callback RecByCat " + recipe);
-            thisComp.recipes.push(recipe);
-            thisComp.recipesMap[recipe.key] = recipe;
+    }
+
+    ngOnDestroy() {
+
+    }
+
+    getAppState(): AppState {
+        return this.appState;
+    }
+
+    onUserChanged(newUser:string) {
+        if (newUser != null) {
+            console.log("User is " + newUser + ", now I can get recipes");
+            this.getRecipes();
+        }
+    }
+
+    getRecipes() {
+        var thiz = this;
+        this.recipes = [];
+        this.getRecipeService().retrieveAll(function (recipe) {
+            console.log("new recipe " + recipe.key);
+            thiz.recipes.push(recipe);
+            thiz.recipesMap[recipe.key] = recipe;
         });
-        
-        window['recipes'] = thisComp.recipes;
-        this.placeholderImage = StaticData.placeholderImage;
     }
 
     getRecipeService() {

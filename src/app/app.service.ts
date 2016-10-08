@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import {Subject, BehaviorSubject} from "rxjs/Rx";
 
 export type InteralStateType = {
   [key: string]: any
@@ -7,6 +8,8 @@ export type InteralStateType = {
 @Injectable()
 export class AppState {
   _state: InteralStateType = { };
+  
+  userSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor() {
 

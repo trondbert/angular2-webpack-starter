@@ -43,6 +43,10 @@ textarea.ingredients {
     cursor: hand;
 }
 
+.imagePreview {
+    width: 100%;
+}
+
 .imageBox:hover > .imageText {
     visibility: visible;
 }

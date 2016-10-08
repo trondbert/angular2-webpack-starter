@@ -1,15 +1,16 @@
 import {Recipe} from "./recipe";
 import {FirebaseConverter} from "../firebase.converter";
+import {App} from "../app.component";
 
 export class FirebaseRecipeConverter implements FirebaseConverter {
 
     entityFromStorage(key, recipeFb) {
         var recipe:Recipe = new Recipe();
+        recipe.key = key;
         recipe.dateCreated = recipeFb.dateCreated;
         recipe.dateModified = recipeFb.dateModified;
-        recipe.imageId = recipeFb.imageId;
+        recipe.imageId = recipeFb.imageId || null;
         recipe.instructions = recipeFb.instructions;
-        recipe.key = key;
         recipe.name = recipeFb.name;
         recipe.tags = recipeFb.tags;
         recipe.transients = {

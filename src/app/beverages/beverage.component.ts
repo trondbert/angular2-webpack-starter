@@ -1,17 +1,23 @@
 import {GenericComponent} from "../generic.component";
 import {BeverageService} from "./beverage.service";
 import {Beverage} from "./beverage";
+import {AppState} from "../app.service";
 
 
 export abstract class BeverageComponent extends GenericComponent {
 
     constructor(private mode:string,
-                private beverageService:BeverageService) {
+                private beverageService:BeverageService,
+                private appState: AppState) {
         super();
     }
 
     ngOnInit() {
         super.ngOnInit();
+    }
+
+    getAppState(): AppState {
+        return this.appState;
     }
 
     getBeverageService() {

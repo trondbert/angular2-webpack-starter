@@ -1,4 +1,4 @@
-<article *ngIf="beverage" (window:keyup)="keyUp($event)">
+<article *ngIf="beverage" (keyup)="keyUp($event)">
     <div class="detailTop">
         <div class="detailLeftSide">
             <div class="name">
@@ -18,5 +18,7 @@
 
     <div class="detailBottom">
         <button (click)="editBeverage()">Rediger</button>
+        <button (click)="goBack()">Tilbake</button>
+        <button (click)="goToBeverages()" class="newGroup">Til vinliste</button>
     </div>
 </article>

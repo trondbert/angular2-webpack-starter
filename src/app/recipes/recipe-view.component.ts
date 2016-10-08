@@ -6,6 +6,7 @@ import {Recipe} from "./recipe";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {StaticData} from "../static.data";
+import {AppState} from "../app.service";
 declare var $:any;
 
 @Component({
@@ -15,22 +16,33 @@ declare var $:any;
 })
 export class RecipeViewComponent extends RecipeComponent implements OnInit {
 
-    private recipe:Recipe;
-
-    placeholderImage = StaticData.placeholderImage;
     private sub:any;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
-                recipeService:RecipeService) {
+                recipeService:RecipeService,
+                appState:AppState) {
 
-        super("view", recipeService);
-        //TODO Delete recipe?
+        super("view", recipeService, appState);
     }
 
     ngOnInit() {
         super.ngOnInit();
+    }
+    ngOnDestroy() {
+        this.sub && this.sub.unsubscribe();
+    }
+
+    onUserChanged(newUser:string) {
+        if (newUser != null) {
+            this.sub && this.sub.unsubscribe();
+            this.retrieveRecipe();
+        }
+    }
+
+    retrieveRecipe() {
+        this.recipe = null;
         var thisComp = this;
         this.sub = this.route.params.subscribe(params => {
             let key = params['key'];
@@ -41,18 +53,12 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
             );
         });
     }
-    ngOnDestroy() {
-        this.sub.unsubscribe();
-    }
 
     getRouter():Router {
         return this.router;
     }
     getLocation():Location {
         return this.location;
-    }
-    getRecipe() {
-        return this.recipe;
     }
 
     keyUp(event) {

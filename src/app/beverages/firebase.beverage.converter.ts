@@ -1,6 +1,6 @@
-import {Recipe} from "./recipe";
 import {FirebaseConverter} from "../firebase.converter";
 import {Beverage} from "./beverage";
+import {App} from "../app.component";
 
 export class FirebaseBeverageConverter implements FirebaseConverter {
 
@@ -9,20 +9,19 @@ export class FirebaseBeverageConverter implements FirebaseConverter {
         beverage.key = key;
         beverage.dateCreated = beverageFb.dateCreated;
         beverage.dateModified = beverageFb.dateModified;
-        beverage.imageId = beverageFb.imageId;
+        beverage.imageId = beverageFb.imageId || null;
         beverage.name = beverageFb.name;
         beverage.comments = beverageFb.comments;
         return beverage;
     }
 
-    entityForStorage(beverage) {
+    entityForStorage(beverage:Beverage) {
         var forStorage = {
             dateCreated: beverage.dateCreated,
             dateModified: beverage.dateModified,
             imageId: beverage.imageId,
             name: beverage.name,
             comments: beverage.comments,
-            tags: beverage.tags,
         };
         return forStorage;
     }

@@ -1,20 +1,22 @@
-import {NgModule, ApplicationRef} from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
-import {RouterModule} from '@angular/router';
-import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { ENV_PROVIDERS } from './environment';
 import { ROUTES } from './app.routes';
 import { App } from './app.component';
 import { APP_RESOLVER_PROVIDERS } from './app.resolver';
 import { AppState, InteralStateType } from './app.service';
+
+import { NgModule, ApplicationRef } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
+import { RouterModule } from '@angular/router';
+import { removeNgStyles, createNewHosts, createInputTransfer } from '@angularclass/hmr';
 import { NoContent } from './no-content';
-import { RecipesEditComponent, RecipesListComponent, RecipesNewComponent, 
+import { RecipesEditComponent, RecipesListComponent, RecipesNewComponent,
          RecipeViewComponent, RecipesByCategoryComponent, RecipeService } from "./recipes";
-import {BeveragesListComponent,BeverageViewComponent,BeverageEditComponent,BeverageService} from "./beverages";
-import {ImageService} from "./image.service";
-import {ServiceFactory} from "./service.factory";
+import { BeveragesListComponent,BeverageViewComponent,BeverageEditComponent,BeverageService } from "./beverages";
+import { ImageService } from "./image.service";
+import { ServiceFactory } from "./service.factory";
+import {BeveragesNewComponent} from "./beverages/beverages-new.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -46,6 +48,7 @@ type StoreType = {
         BeveragesListComponent,
         BeverageViewComponent,
         BeverageEditComponent,
+        BeveragesNewComponent,
         NoContent,
     ],
     imports: [ // import Angular's modules
