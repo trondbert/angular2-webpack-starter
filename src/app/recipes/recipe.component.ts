@@ -32,14 +32,4 @@ export abstract class RecipeComponent extends GenericComponent {
         let link = ['/recipes/' + this.recipe.key + '/edit/'];
         this.getRouter().navigate(link);
     }
-
-    deleteRecipe() {
-        if (this.recipe) {
-            confirm("Vil du virkelig slette oppskriften?");
-            this.recipeService.remove(this.recipe);
-            let link = ['/recipes'];
-            this.getRouter().navigate(link);
-        }
-    }
-
 }

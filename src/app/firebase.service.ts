@@ -5,13 +5,13 @@ import {FirebaseFactory} from "./firebase.factory";
 import {Entity} from "./entity";
 
 export class FirebaseService extends StorageService {
-    
+
     constructor(private baseEntitiesUrl:string,
                 private imageService:ImageService,
                 private firebaseConverter:FirebaseConverter) {
         super();
     }
-
+    
     retrieve(key:string, fn) {
         var firebaseRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/' + key);
         var thiz = this;
@@ -37,13 +37,7 @@ export class FirebaseService extends StorageService {
         var fbCallback = function (data) {
             thiz.entityAdded(data, callback);
         };
-        /*
-        firebase gir deg data, med val() og key
-        trekk ut key og val fra den
-        oppfyll promise
-         */
 
-        fbRef.off('child_added', fbCallback); //TODO virker ikke, det er fortsatt flere lyttere på ressursen
         fbRef.on('child_added', fbCallback);
     }
 

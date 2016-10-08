@@ -27,11 +27,9 @@ export class BeverageFirebaseService extends BeverageService {
     retrieveByCategory(category, callback) {
         this.firebaseService.retrieveByCategory(category, callback);
     }
-
     save(beverage:Beverage, callback) {
         this.firebaseService.save(beverage, callback);
     }
-
     remove(beverage:Beverage) {
         this.firebaseService.remove(beverage);
     }

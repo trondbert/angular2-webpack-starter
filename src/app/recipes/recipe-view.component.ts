@@ -17,6 +17,7 @@ declare var $:any;
 export class RecipeViewComponent extends RecipeComponent implements OnInit {
 
     private sub:any;
+    private deleteInProcess = false;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
@@ -67,5 +68,15 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
             event.preventDefault();
             this.editRecipe();
         }
+    }
+
+    deleteRecipe() {
+        this.deleteInProcess = true;
+    }
+
+    confirmDeleteRecipe() {
+        this.getRecipeService().remove(this.recipe);
+        this.deleteInProcess = false;
+        this.goToRecipes();
     }
 }

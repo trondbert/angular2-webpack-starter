@@ -20,6 +20,7 @@ export class BeverageEditComponent extends BeverageComponent {
     private errors = [];
 
     private sub:any;
+    private deleteInProcess = false;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
@@ -104,11 +105,12 @@ export class BeverageEditComponent extends BeverageComponent {
         return this.beverage;
     }
 
-    getTagMap(tags) {
-        for (let tag of tags.split(/ +/)) {
-            var tagFixed = tag.replace(/ø/g, "oe").replace(/å/g, "aa").replace(/æ/g, "ae");
-            console.log(tagFixed);
-        }
+    deleteBeverage() {
+        this.deleteInProcess = true;
     }
-
+    confirmDeleteBeverage() {
+        this.getBeverageService().remove(this.beverage);
+        this.deleteInProcess = false;
+        this.goToBeverages();
+    }
 }

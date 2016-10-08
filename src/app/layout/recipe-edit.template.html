@@ -45,7 +45,12 @@
       <button (click)="save()">{{recipe.$id ? 'Oppdater' : 'Lagre'}}</button>
       <button (click)="goBack()">Tilbake</button>
       <button (click)="goToRecipes()" class="newGroup">Til oppskrifter</button>
-      <button (click)="deleteRecipe()">Slett</button>
+
+      <button *ngIf="!deleteInProcess"       (click)="deleteRecipe()">Slett</button>
+      <div *ngIf="deleteInProcess" class="deleteNotice">
+        Sletting kan ikke angres. Er du sikker?
+      </div>
+      <button *ngIf="deleteInProcess" (click)="confirmDeleteRecipe()" class="confirmDelete">Ja, jeg vil slette</button>
     </div>
 
   </div>

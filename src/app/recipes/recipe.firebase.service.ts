@@ -38,5 +38,4 @@ export class RecipeFirebaseService extends RecipeService {
         var recipesRef = FirebaseFactory.getFirebaseRef("recipes/");
         recipesRef.child(recipe.key).remove();
     }
-
 }

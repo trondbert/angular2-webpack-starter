@@ -1,5 +1,4 @@
-import {Component, SimpleChange, SimpleChanges, Input} from '@angular/core';
-import {Recipe} from "./recipe";
+import {Component} from '@angular/core';
 import {GenericComponent} from "../generic.component";
 import {OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router"
@@ -15,8 +14,6 @@ import {AppState} from "../app.service";
 export class RecipesListComponent extends GenericComponent implements OnInit {
 
     private recipes = [];
-
-    type = "recList";
 
     constructor(private recipeService:RecipeService,
                 private route:ActivatedRoute,

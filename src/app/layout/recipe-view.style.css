@@ -38,6 +38,11 @@
     float: left;
 }
 
+.heading_ingredients {
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
 .ingredients:nth-child(2) {
     float: right;
 }

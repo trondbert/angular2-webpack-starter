@@ -21,6 +21,7 @@ export class RecipesEditComponent extends RecipeComponent {
     private errors = [];
 
     private sub:any;
+    private deleteInProcess = false;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
@@ -107,5 +108,15 @@ export class RecipesEditComponent extends RecipeComponent {
             var tagFixed = tag.replace(/ø/g, "oe").replace(/å/g, "aa").replace(/æ/g, "ae");
             console.log(tagFixed);
         }
+    }
+    
+    deleteRecipe() {
+        this.deleteInProcess = true;
+    }
+    
+    confirmDeleteRecipe() {
+        this.getRecipeService().remove(this.recipe);
+        this.deleteInProcess = false;
+        this.goToRecipes();
     }
 }

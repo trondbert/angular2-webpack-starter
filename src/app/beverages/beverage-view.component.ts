@@ -18,6 +18,7 @@ export class BeverageViewComponent extends BeverageComponent implements OnInit {
 
     private beverage:Beverage;
     private sub:any;
+    private deleteInProcess = false;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
@@ -70,5 +71,14 @@ export class BeverageViewComponent extends BeverageComponent implements OnInit {
             event.preventDefault();
             this.editBeverage();
         }
+    }
+
+    deleteBeverage() {
+        this.deleteInProcess = true;
+    }
+    confirmDeleteBeverage() {
+        this.getBeverageService().remove(this.beverage);
+        this.deleteInProcess = false;
+        this.goToBeverages();
     }
 }

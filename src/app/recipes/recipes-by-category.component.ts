@@ -16,8 +16,6 @@ export class RecipesByCategoryComponent extends GenericComponent {
     private sub:any;
     private recipes;
 
-    type = "bycat";
-
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,

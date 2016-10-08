@@ -39,7 +39,7 @@ export class RecipeMockService extends RecipeService {
     retrieveAll(callback) {
         callback.call(this, this.recipe1);
     }
-
+    
     getBaseEntitiesUrl() {
         return 'recipes';
     }
