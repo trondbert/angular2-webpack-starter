@@ -1,0 +1,7 @@
+{
+  "firebase": "kokogvin-f92bc",
+  "public": "dist",
+  "ignore": [
+    "**/.*"
+  ]
+}
