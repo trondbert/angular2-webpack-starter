@@ -53,5 +53,10 @@
       <button *ngIf="deleteInProcess" (click)="confirmDeleteRecipe()" class="confirmDelete">Ja, jeg vil slette</button>
     </div>
 
+    <imageEdit *ngIf="recipe.image && recipe.image.imageData"
+               (onImageEdited)="onImageEdited($event)"
+               [imageData] = "recipe.image.imageData">
+    </imageEdit>
+
   </div>
 </article>

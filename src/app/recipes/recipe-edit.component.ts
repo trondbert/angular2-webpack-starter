@@ -1,14 +1,11 @@
 import {Component} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {ImageService} from "../image.service";
 import {Recipe} from "./recipe";
 import {RecipeComponent} from "./recipe.component";
 import {RecipeService} from "./recipe.service";
 import {RecipeValidator} from "./recipe.validator";
 import {AppState} from "../app.service";
-
-declare var $:any;
 
 @Component({
     selector: 'recipeEdit',
@@ -118,5 +115,9 @@ export class RecipesEditComponent extends RecipeComponent {
         this.getRecipeService().remove(this.recipe);
         this.deleteInProcess = false;
         this.goToRecipes();
+    }
+
+    onImageEdited(imgData) {
+        this.recipe.image.imageData = imgData;
     }
 }

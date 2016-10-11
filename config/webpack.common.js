@@ -274,6 +274,12 @@ module.exports = function(options) {
         headTags: require('./head-config.common')
       }),
 
+      new webpack.ProvidePlugin({
+        jQuery: 'jquery',
+        $: 'jquery',
+        jquery: 'jquery'
+      })
+
     ],
 
     /*

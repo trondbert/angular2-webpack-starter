@@ -1,3 +1,9 @@
+.resize-outer-container {
+    padding: 2em;
+    position: relative;
+    min-height: 400px;
+}
+
 .resize-container {
     position: relative;
     display: inline-block;
@@ -55,10 +61,10 @@
     position: absolute;
     left: 50%;
     top: 50%;
-    margin-left: -100px;
+    margin-left: -200px;
     margin-top: -100px;
     z-index: 999;
-    width: 200px;
+    width: 300px;
     height: 200px;
     border: solid 2px rgba(222,60,80,.9);
     box-sizing: content-box;
@@ -70,7 +76,7 @@
     content: '';
     position: absolute;
     display: block;
-    width: 204px;
+    width: 300px;
     height: 40px;
     border-left: dashed 2px rgba(222,60,80,.9);
     border-right: dashed 2px rgba(222,60,80,.9);
@@ -94,7 +100,7 @@
     position: absolute;
     display: block;
     width: 40px;
-    height: 204px;
+    height: 200px;
     border-top: dashed 2px rgba(222,60,80,.9);
     border-bottom: dashed 2px rgba(222,60,80,.9);
 }

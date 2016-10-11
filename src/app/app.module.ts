@@ -17,6 +17,7 @@ import { BeveragesListComponent,BeverageViewComponent,BeverageEditComponent,Beve
 import { ImageService } from "./image.service";
 import { ServiceFactory } from "./service.factory";
 import {BeveragesNewComponent} from "./beverages/beverages-new.component";
+import {ImageEditComponent} from "./images/image-edit.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -49,6 +50,7 @@ type StoreType = {
         BeverageViewComponent,
         BeverageEditComponent,
         BeveragesNewComponent,
+        ImageEditComponent,
         NoContent,
     ],
     imports: [ // import Angular's modules
