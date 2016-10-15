@@ -1,7 +1,14 @@
+article {
+    padding: 0.2em 0.5em;
+}
+
+.column {
+    display: inline-block;
+}
 .resize-outer-container {
     padding: 2em;
     position: relative;
-    min-height: 400px;
+    min-height: 350px;
 }
 
 .resize-container {
@@ -59,9 +66,9 @@
 
 .overlay {
     position: absolute;
-    left: 50%;
-    top: 50%;
-    margin-left: -200px;
+    left: 30%;
+    top: 40%;
+    margin-left: -50px;
     margin-top: -100px;
     z-index: 999;
     width: 300px;

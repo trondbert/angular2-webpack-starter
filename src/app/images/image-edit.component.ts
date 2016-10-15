@@ -101,6 +101,7 @@ export class ImageEditComponent {
         this.moveInProgress = true;
     }
 
+    //Med utgangspunkt i http://tympanus.net/codrops/2014/10/30/resizing-cropping-images-canvas/
     resizing (e) {
         console.log("Start of resizing(e)");
         var mouse={x:null, y: null},width,height,left,top,offset = this.$container.offset();
@@ -182,6 +183,11 @@ export class ImageEditComponent {
 
         crop_canvas.getContext('2d').drawImage(this.image_target, left, top, width, height, 0, 0, width, height);
         this.onImageEdited.emit(crop_canvas.toDataURL("image/jpg"));
+    }
+
+    cancel () {
+        console.log("Cancel");
+        this.onImageEdited.emit(null);
     }
 
     isResizing() {

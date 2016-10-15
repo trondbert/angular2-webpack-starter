@@ -12,4 +12,8 @@ export class Recipe extends Entity {
   dateModified = App.dateToString(new Date());
 
   transients = {ingredients1: "", ingredients2: ""};
+
+  imageData = function() {
+    return this.image && this.image.imageData;
+  }
 }

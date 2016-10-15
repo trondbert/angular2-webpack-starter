@@ -1,62 +1,76 @@
-<article *ngIf="recipe" (keydown.enter)="keyDownEnter($event)">
-  <div class="detailTop">
-    <div class="detailLeftSide">
+<article *ngIf="recipe" (class.disabled)="imageEditorVisible" (keydown.enter)="keyDownEnter($event)">
+    <div class="detailTop">
+        <div class="detailLeftSide">
 
-      <div class="inputField">
-        <label for="name">Navn:</label>
-        <input [(ngModel)]="recipe.name" type="text" id="name"/>
-      </div>
-      <div class="inputField">
-        <label for="recipeTags">Kategorier:</label>
-        <input [(ngModel)]="recipe.tags" type="text" id="recipeTags"/>
-      </div>
+            <div class="inputField">
+                <label for="name">Navn:</label>
+                <input [(ngModel)]="recipe.name" type="text" id="name"/>
+            </div>
+            <div class="inputField">
+                <label for="recipeTags">Kategorier:</label>
+                <input [(ngModel)]="recipe.tags" type="text" id="recipeTags"/>
+            </div>
 
-      <div class="imageBox">
-        <span class="imageText">{{recipe.image ? 'Endre bilde' : 'Legg til bilde'}}</span>
-        <img src="{{recipe.image ? recipe.image.imageData : placeholderImage}}"
-             class="imagePreview" (click)="chooseImg()"/>
-        <input type="file" id="imageChooser" (change)="imgChosen($event)" hidden/>
-      </div>
-    </div>
+            <div class="imageBox">
+                <div [ngClass]="{'uploadImage': true, 'imageOverlay': true, 'imagePresent': recipe.imageData()}"
+                     (click)="chooseImg()">
 
-    <div class="detailRightSide">
-      <div class="inputField">
-        <h3>Ingredienser:</h3>
+                    <span class="imageText">
+                        Last opp bilde
+                    </span>
+                </div>
+                <div [ngClass]="{'adjustImage': true, 'imageOverlay': true, 'imagePresent': recipe.imageData()}"
+                     (click)="showImageEditor(true)">
+
+                    <span class="imageText">
+                        Tilpass bildet
+                    </span>
+                </div>
+                <img src="{{recipe.image ? recipe.image.imageData : placeholderImage}}"
+                     class="imagePreview" (click)="chooseImg()"/>
+                <input type="file" id="imageChooser" (change)="imgChosen($event)" hidden/>
+            </div>
+        </div>
+
+        <div class="detailRightSide">
+            <div class="inputField">
+                <h3>Ingredienser:</h3>
                 <textarea [(ngModel)]="recipe.transients.ingredients1" id="recipeIngredients1" class="ingredients"
                           title="Ingredienser" (keyup.enter)="$event.preventDefault()"></textarea>
                 <textarea [(ngModel)]="recipe.transients.ingredients2" id="recipeIngredients2" class="ingredients"
                           title="Ingredienser"></textarea>
-      </div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="detailBottom">
-    <h3>Slik gjør du:</h3>
+    <div class="detailBottom">
+        <h3>Slik gjør du:</h3>
 
-    <div class="inputField">
+        <div class="inputField">
             <textarea [(ngModel)]="recipe.instructions" class="instructions"
                       title="Slik gjør du"></textarea>
+        </div>
+        <div *ngFor="let error of errors">
+            <i>{{error}}</i>
+        </div>
+
+        <div>
+            <button (click)="save()">{{recipe.$id ? 'Oppdater' : 'Lagre'}}</button>
+            <button (click)="goBack()">Tilbake</button>
+            <button (click)="goToRecipes()" class="newGroup">Til oppskrifter</button>
+
+            <button *ngIf="!deleteInProcess" (click)="deleteRecipe()">Slett</button>
+            <div *ngIf="deleteInProcess" class="deleteNotice">
+                Sletting kan ikke angres. Er du sikker?
+            </div>
+            <button *ngIf="deleteInProcess" (click)="confirmDeleteRecipe()" class="confirmDelete">Ja, jeg vil slette
+            </button>
+        </div>
     </div>
-    <div *ngFor="let error of errors">
-      <i>{{error}}</i>
-    </div>
-
-    <div>
-      <button (click)="save()">{{recipe.$id ? 'Oppdater' : 'Lagre'}}</button>
-      <button (click)="goBack()">Tilbake</button>
-      <button (click)="goToRecipes()" class="newGroup">Til oppskrifter</button>
-
-      <button *ngIf="!deleteInProcess"       (click)="deleteRecipe()">Slett</button>
-      <div *ngIf="deleteInProcess" class="deleteNotice">
-        Sletting kan ikke angres. Er du sikker?
-      </div>
-      <button *ngIf="deleteInProcess" (click)="confirmDeleteRecipe()" class="confirmDelete">Ja, jeg vil slette</button>
-    </div>
-
-    <imageEdit *ngIf="recipe.image && recipe.image.imageData"
-               (onImageEdited)="onImageEdited($event)"
-               [imageData] = "recipe.image.imageData">
-    </imageEdit>
-
-  </div>
 </article>
+
+<hr *ngIf="imageEditorVisible"/>
+<imageEdit *ngIf="imageEditorVisible"
+           (onImageEdited)="onImageEdited($event)"
+           [imageData]="recipe.image.imageData">
+</imageEdit>

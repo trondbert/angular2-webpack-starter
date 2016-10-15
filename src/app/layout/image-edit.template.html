@@ -1,16 +1,24 @@
-<div class="resize-outer-container" (mousemove)="mouseMoved($event)" (mouseup)="mouseup($event)">
-    <div class="overlay">
-        <div class="overlay-inner"></div>
+<article>
+    <h3>Rediger bildet</h3>
+    <div class="column">
+
+        <div class="resize-outer-container" (mousemove)="mouseMoved($event)" (mouseup)="mouseup($event)">
+            <div class="overlay">
+                <div class="overlay-inner"></div>
+            </div>
+            <div class="resize-container" (mousedown)="startMoving($event)">
+                <span class="resize-handle resize-handle-nw" (mousedown)="startResize($event)"></span>
+                <span class="resize-handle resize-handle-ne" (mousedown)="startResize($event)"></span>
+
+                <img class="resizableImage" alt="Image" />
+
+                <span class="resize-handle resize-handle-se" (mousedown)="startResize($event)"></span>
+                <span class="resize-handle resize-handle-sw" (mousedown)="startResize($event)"></span>
+            </div>
+        </div>
     </div>
-    <div class="resize-container" (mousedown)="startMoving($event)">
-        <span class="resize-handle resize-handle-nw" (mousedown)="startResize($event)"></span>
-        <span class="resize-handle resize-handle-ne" (mousedown)="startResize($event)"></span>
-
-        <img class="resizableImage" alt="Image" />
-
-        <span class="resize-handle resize-handle-se" (mousedown)="startResize($event)"></span>
-        <span class="resize-handle resize-handle-sw" (mousedown)="startResize($event)"></span>
-
-        <button class="btn-crop js-crop" (click)="crop()">Crop</button>
+    <div class="column">
+        <div><button (click)="crop()">Crop</button></div>
+        <div><button (click)="cancel()">Cancel</button></div>
     </div>
-</div>
+</article>

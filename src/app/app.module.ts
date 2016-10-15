@@ -18,6 +18,7 @@ import { ImageService } from "./image.service";
 import { ServiceFactory } from "./service.factory";
 import {BeveragesNewComponent} from "./beverages/beverages-new.component";
 import {ImageEditComponent} from "./images/image-edit.component";
+import {HomeComponent} from "./home.component";
 
 // Application wide providers
 const APP_PROVIDERS = [
@@ -41,6 +42,7 @@ type StoreType = {
     bootstrap: [ App ],
     declarations: [
         App,
+        HomeComponent,
         RecipesNewComponent,
         RecipesEditComponent,
         RecipeViewComponent,

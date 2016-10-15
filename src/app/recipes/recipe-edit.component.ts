@@ -1,4 +1,4 @@
-import {Component} from "@angular/core";
+import {Component, ViewChild, ElementRef} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {Recipe} from "./recipe";
@@ -6,6 +6,8 @@ import {RecipeComponent} from "./recipe.component";
 import {RecipeService} from "./recipe.service";
 import {RecipeValidator} from "./recipe.validator";
 import {AppState} from "../app.service";
+
+declare var $:any;
 
 @Component({
     selector: 'recipeEdit',
@@ -19,6 +21,7 @@ export class RecipesEditComponent extends RecipeComponent {
 
     private sub:any;
     private deleteInProcess = false;
+    private imageEditorVisible = false;
 
     constructor(private router:Router,
                 private route:ActivatedRoute,
@@ -34,6 +37,14 @@ export class RecipesEditComponent extends RecipeComponent {
     ngOnDestroy() {
         super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
+    }
+
+    scrollToBottom(): void {
+        $('html, body').animate({scrollTop: $(document).height()}, 'slow');
+    }
+
+    scrollToTop(): void {
+        $('html, body').animate({scrollTop: 0}, 'slow');
     }
 
     onUserChanged(newUser:string) {
@@ -73,6 +84,13 @@ export class RecipesEditComponent extends RecipeComponent {
         this.getRecipeService().save(this.recipe, function(key) {
             thisComp.goToRecipe(thisComp.recipe, null);
         });
+    }
+    
+    showImageEditor(yay) {
+        this.imageEditorVisible = yay;
+        if (yay) {
+            this.scrollToBottom();
+        }
     }
 
     chooseImg() {
@@ -118,6 +136,10 @@ export class RecipesEditComponent extends RecipeComponent {
     }
 
     onImageEdited(imgData) {
-        this.recipe.image.imageData = imgData;
+        if (imgData) {
+            this.recipe.image.imageData = imgData;
+        }
+        this.showImageEditor(false);
+        this.scrollToTop();
     }
 }

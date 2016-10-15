@@ -46,18 +46,45 @@ textarea.ingredients {
 .imagePreview {
     width: 100%;
 }
-
-.imageBox:hover > .imageText {
+.imageOverlay {
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    z-index: 2;
+    opacity: 0.7;
+    visibility: hidden;
+    cursor: pointer;
+}
+.uploadImage {
+    left: 0;
+    background-color: #999;
+    width: 100%;
+}
+.adjustImage {
+    left: 50%;
+    background-color: #bbb;
+}
+.uploadImage.imagePresent {
+    width: 50%;
+}
+.imageBox:hover > .adjustImage.imagePresent {
     visibility: visible;
 }
-
+.imageBox:hover > .uploadImage {
+    visibility: visible;
+}
 .imageText {
+    margin-top: 30%;
+    margin-left: 30%;
     z-index: 3;
     position: absolute;
-    font-size: 1.2em;
+    font-size: 1.4em;
     color: white;
-    background-color: black;
-    visibility: hidden;
+    text-shadow: -3px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.imageOverlay.imagePresent .imageText {
+    margin-top: 50%;
+    margin-left: 25%;
 }
 
 .imageBox > img {

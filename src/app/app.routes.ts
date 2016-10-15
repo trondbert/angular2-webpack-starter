@@ -5,9 +5,11 @@ import { RecipesNewComponent, RecipesEditComponent,RecipesByCategoryComponent,Re
          RecipesListComponent} from "./recipes";
 import { BeveragesListComponent, BeverageViewComponent, BeverageEditComponent} from "./beverages";
 import {BeveragesNewComponent} from "./beverages/beverages-new.component";
+import {HomeComponent} from "./home.component";
 
 export const ROUTES: Routes = [
-  { path : '', pathMatch: 'full',       redirectTo: '/recipes/category/middag'},
+  { path : '', pathMatch: 'full',       component : HomeComponent},
+  { path : 'recipes',                   component : RecipesListComponent},
   { path : 'recipes',                   component : RecipesListComponent},
   { path : 'recipes/new',               component : RecipesNewComponent},
   { path : 'recipes/:key/edit',         component : RecipesEditComponent},
