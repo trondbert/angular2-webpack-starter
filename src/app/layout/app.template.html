@@ -23,4 +23,5 @@
         </ul>
     </nav>
 </div>
+<div *ngIf="loginError" class="errorMessage">{{loginError}}</div>
 <router-outlet></router-outlet>

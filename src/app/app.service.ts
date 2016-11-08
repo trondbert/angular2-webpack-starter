@@ -8,7 +8,7 @@ export type InteralStateType = {
 @Injectable()
 export class AppState {
   _state: InteralStateType = { };
-  
+
   userSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor() {

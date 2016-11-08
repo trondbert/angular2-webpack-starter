@@ -6,6 +6,7 @@ body {
     width: 1000px;
     max-width: 1000px;
     margin: auto;
+    position: relative;
 }
 .loading {
     padding: 2em;
@@ -37,6 +38,16 @@ img.frontpageImage {
     line-height: 1.7em;
     text-align: center;
     font-weight: normal;
+}
+
+.errorMessage {
+    background-color: #ee9999;
+    text-align: center;
+    padding: 0.2em;
+    border: 1px solid;
+    position: absolute;
+    width: 100%;
+    opacity: 0.75;
 }
 
 h2 {

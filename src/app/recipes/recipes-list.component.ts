@@ -52,37 +52,5 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
     getLocation() : Location { return this.location; }
     getRouter() { return this.router; }
     getRoute() { return this.route; }
-
-    adhoc() {
-        var promise:Promise<number> = new Promise((resolve, reject) => {
-            console.log("About to run retrieve");
-            this.recipeService.retrieve("-JbXOVSHZ1xZTecumGgt", function(recipe) {
-                console.log("Found recipe");
-                resolve(123);
-                resolve(456);
-            });
-        });
-        promise.then((res) => { console.log(res); });
-
-        var mini = new MiniClass();
-        var meth = mini.getMeth();
-
-        //console.log(meth.call(this)); kalt med this, så er variabelen undefined
-        console.log(meth()); //kalt uten argumenter
-    }
 }
 
-class MiniClass {
-
-    a: string = "foo";
-
-    constructor() {}
-
-    getMeth() {
-        return this.getA;
-    }
-
-    getA() {
-        return this.a;
-    }
-}

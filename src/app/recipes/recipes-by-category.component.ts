@@ -16,6 +16,8 @@ export class RecipesByCategoryComponent extends GenericComponent {
     private sub:any;
     private recipes;
 
+    private lastUser:string = null;
+
     constructor(private router:Router,
                 private route:ActivatedRoute,
                 private location:Location,
@@ -34,12 +36,11 @@ export class RecipesByCategoryComponent extends GenericComponent {
     }
 
     onUserChanged(newUser:string) {
-        console.log("User changed: " + newUser);
-        if (newUser != null) {
-            window["hits"] = window["hits"] ? window["hits"] + 1 : 1;
+        if (newUser != null && this.lastUser == null) {
             this.sub && this.sub.unsubscribe();
             this.getRecipes();
         }
+        this.lastUser = newUser;
     }
 
     getRecipes() {

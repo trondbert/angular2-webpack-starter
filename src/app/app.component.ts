@@ -22,6 +22,9 @@ import {FirebaseFactory} from "./firebase.factory";
 export class App {
     name = 'Mat, drikke og kos';
     user = null;
+    loginError = null;
+
+    static authCallbackSetup = false;
 
     constructor(public appState:AppState, public router:Router) {
 
@@ -29,9 +32,12 @@ export class App {
 
     ngOnInit() {
         console.log('Initial App State', this.appState.state);
+    }
 
+    setupAuth() {
         var thisComp = this;
         FirebaseFactory.onAuth(function (user) {
+            thisComp.loginError = null;
             if (user) {
                 if (user.email != thisComp.appState.userSubject.getValue()) {
                     thisComp.appState.userSubject.next(user.email);
@@ -42,14 +48,33 @@ export class App {
                 thisComp.appState.userSubject.next(null);
                 thisComp.user = null;
             }
+            thisComp.loginError = null;
         });
+        App.authCallbackSetup = true;
     }
 
     logIn(password) {
-        FirebaseFactory.logIn(password);
+        if (!App.authCallbackSetup)
+            this.setupAuth();
+
+        if (password) {
+            var thisComp = this;
+            FirebaseFactory.logIn(password, function(error) {
+                thisComp.onLoginFailed(error);
+            });
+        }
     }
     logOut() {
         FirebaseFactory.logOut();
+    }
+    onLoginFailed(error) {
+        var errorCode = error.code;
+        var errorMessage = error.message;
+        if (errorCode === 'auth/wrong-password') {
+            this.loginError = "Feil passord";
+        } else {
+            this.loginError = "Innlogging feilet";
+        }
     }
 
 

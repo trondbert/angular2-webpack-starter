@@ -22,9 +22,12 @@ export class FirebaseFactory {
         return FirebaseFactory.dataService.database().ref(url);
     }
 
-    static logIn(password) {
+    static logIn(password, errorCallback) {
         FirebaseFactory.initApp();
-        this.dataService.auth().signInWithEmailAndPassword("trondvalen@gmail.com", password);
+        this.dataService.auth().signInWithEmailAndPassword("trondvalen@gmail.com", password)
+            .catch(function(error) {
+                errorCallback(error);
+        });
     }
 
     static logOut() {

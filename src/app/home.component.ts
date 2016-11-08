@@ -7,7 +7,7 @@ declare var $:any;
     selector: 'home',
     template: `<article>
                     <a href="/#/recipes/category/middag">
-                        <img class="frontpageImage" src="/assets/img/frontpage_kitchen.jpg"/>
+                        <img class="frontpageImage" src="assets/img/frontpage_kitchen.jpg"/>
                     </a>
                </article>`,
     styleUrls: ['layout/app.style.css']
