@@ -36,7 +36,6 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
 
     onUserChanged(newUser:string) {
         if (newUser != null) {
-            console.log("User is " + newUser + ", now I can get recipes");
             this.getRecipes();
         }
     }

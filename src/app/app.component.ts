@@ -24,21 +24,21 @@ export class App {
     user = null;
     loginError = null;
 
-    static authCallbackSetup = false;
-
     constructor(public appState:AppState, public router:Router) {
 
     }
 
     ngOnInit() {
         console.log('Initial App State', this.appState.state);
+        this.setupAuth();
     }
 
     setupAuth() {
         var thisComp = this;
         FirebaseFactory.onAuth(function (user) {
-            thisComp.loginError = null;
+            console.log("On auth");
             if (user) {
+                console.log(user.email + ";" + thisComp.appState.userSubject.getValue());
                 if (user.email != thisComp.appState.userSubject.getValue()) {
                     thisComp.appState.userSubject.next(user.email);
                     thisComp.user = user.email;
@@ -50,13 +50,9 @@ export class App {
             }
             thisComp.loginError = null;
         });
-        App.authCallbackSetup = true;
     }
 
     logIn(password) {
-        if (!App.authCallbackSetup)
-            this.setupAuth();
-
         if (password) {
             var thisComp = this;
             FirebaseFactory.logIn(password, function(error) {
@@ -85,6 +81,5 @@ export class App {
             ("0" + (date.getMonth() + 1)).slice(-2) +
             ("0" + date.getDate()).slice(-2);
     };
-
 }
 
