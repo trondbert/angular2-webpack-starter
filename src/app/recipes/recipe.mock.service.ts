@@ -43,4 +43,6 @@ export class RecipeMockService extends RecipeService {
     getBaseEntitiesUrl() {
         return 'recipes';
     }
+
+    disconnect() {}
 }

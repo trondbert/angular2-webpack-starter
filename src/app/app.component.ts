@@ -30,10 +30,14 @@ export class App {
 
     ngOnInit() {
         console.log('Initial App State', this.appState.state);
-        this.setupAuth();
+        this.subscribeToAuthChanges();
     }
 
-    setupAuth() {
+    ngOnDestroy() {
+        this.unsubscribeToAuthChanges();
+    }
+
+    subscribeToAuthChanges() {
         var thisComp = this;
         FirebaseFactory.onAuth(function (user) {
             console.log("On auth");
@@ -50,6 +54,10 @@ export class App {
             }
             thisComp.loginError = null;
         });
+    }
+
+    unsubscribeToAuthChanges() {
+        FirebaseFactory.offAuth();
     }
 
     logIn(password) {
@@ -72,7 +80,6 @@ export class App {
             this.loginError = "Innlogging feilet";
         }
     }
-
 
     static dateToString(date) {
         if (date == null) return null;

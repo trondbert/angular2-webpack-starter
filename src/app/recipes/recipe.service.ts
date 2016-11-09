@@ -13,4 +13,6 @@ export abstract class RecipeService extends StorageService {
     abstract retrieveByCategory(key:string, callback);
 
     abstract retrieveAll(callback);
+
+    abstract disconnect();
 }

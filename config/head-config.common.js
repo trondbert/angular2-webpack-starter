@@ -15,7 +15,7 @@
  */
 module.exports = {
   link: [
-    { rel: 'icon', type: 'image/vnd.microsoft.icon', href: '/favicon.ico', sizes: '64x64' },
+    { rel: 'icon', type: 'image/vnd.microsoft.icon', href: '/assets/icon/favicon.ico', sizes: '64x64' },
 
     /** <link> tags for a Web App Manifest **/
     { rel: 'manifest', href: '/assets/manifest.json' }

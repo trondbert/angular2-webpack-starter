@@ -39,4 +39,11 @@ export class FirebaseFactory {
         FirebaseFactory.initApp();
         this.dataService.auth().onAuthStateChanged(function(user) { callback(user) });
     }
+
+    static offAuth() {
+        FirebaseFactory.initApp();
+        this.dataService.auth().onAuthStateChanged(function(user) {
+            //Don't do a thing
+        });
+    }
 }

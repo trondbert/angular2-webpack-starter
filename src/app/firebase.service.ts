@@ -11,7 +11,7 @@ export class FirebaseService extends StorageService {
                 private firebaseConverter:FirebaseConverter) {
         super();
     }
-    
+
     retrieve(key:string, fn) {
         var firebaseRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/' + key);
         var thiz = this;
@@ -99,6 +99,11 @@ export class FirebaseService extends StorageService {
     remove(entity:Entity) {
         var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + "/");
         fbRef.child(entity.key).remove();
+    }
+
+    disconnect() {
+        var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/');
+        fbRef.off();
     }
 }
 

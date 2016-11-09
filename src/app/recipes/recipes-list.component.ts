@@ -27,7 +27,10 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
         super.ngOnInit();
     }
     ngOnDestroy() {
+        console.log("On destroy");
         super.ngOnDestroy();
+        this.recipes.length = 0;
+        this.recipeService.disconnect();
     }
 
     getAppState(): AppState {
@@ -35,6 +38,7 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
     }
 
     onUserChanged(newUser:string) {
+        console.log("onUserChanged: " + newUser);
         if (newUser != null) {
             this.getRecipes();
         }
@@ -42,7 +46,7 @@ export class RecipesListComponent extends GenericComponent implements OnInit {
 
     getRecipes() {
         var thiz = this;
-        this.recipes = [];
+        this.recipes.length = 0;
         this.recipeService.retrieveAll(function (recipe) {
             thiz.recipes.push(recipe);
         });
