@@ -56,7 +56,7 @@
 
         <div>
             <button (click)="save()">{{recipe.$id ? 'Oppdater' : 'Lagre'}}</button>
-            <button (click)="goBack()">Tilbake</button>
+            <button (click)="cancelEditing()">Avbryt redigering</button>
             <button (click)="goToRecipes()" class="newGroup">Til oppskrifter</button>
 
             <button *ngIf="!deleteInProcess" (click)="deleteRecipe()">Slett</button>

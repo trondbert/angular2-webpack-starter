@@ -5,14 +5,13 @@ import {Beverage} from "./beverages";
 import {StaticData} from "./static.data";
 import {AppState} from "./app.service";
 import {BehaviorSubject} from "rxjs/Rx";
+import {App} from "./app.component";
 
 export abstract class GenericComponent {
 
     protected placeholderImage = StaticData.placeholderImage;
-
+    protected logger = App.LOGGER_FACTORY.getLogger("GenericComponent");
     private isSubscribed = false;
-
-    type = "generic";
 
     ngOnInit() {
         if (!this.isSubscribed) {
@@ -61,8 +60,8 @@ export abstract class GenericComponent {
     }
 
     goToRecipes() {
-        let link = ['/recipes'];
-        this.getRouter().navigate(link);
+        let lastVisit = this.getLastRecipeList();
+        this.getRouter().navigate(lastVisit ? [lastVisit] : ['/recipes/middag']);
     }
 
     goToRecipe(recipe:Recipe, event) {
@@ -76,5 +75,15 @@ export abstract class GenericComponent {
         if (!val) return "";
 
         return val.replace(/\n/g, '<br/>');
+    }
+
+    getLastWineList() { return this.getAppState().get("wineList"); }
+    setLastWineList(url) {
+        this.getAppState().set("wineList", decodeURIComponent(url));
+    }
+    getLastRecipeList() { return this.getAppState().get("recipeList"); }
+    setLastRecipeList(url) {
+        this.getAppState().set("recipeList", decodeURIComponent(url));
+        this.logger.debug(this.getAppState().get("recipeList"));
     }
 }

@@ -1,8 +1,7 @@
 import {Recipe} from "./recipe";
 import {Injectable} from "@angular/core";
-import {StorageService} from "../storage.service";
 
-export abstract class RecipeService extends StorageService {
+export abstract class RecipeService {
     
     abstract remove(recipe:Recipe):void;
 
@@ -10,9 +9,11 @@ export abstract class RecipeService extends StorageService {
 
     abstract save(recipe:Recipe, callback):void;
 
-    abstract retrieveByCategory(key:string, callback);
+    abstract retrieveByCategory(key:string);
 
-    abstract retrieveAll(callback);
+    abstract retrieveAll() : Recipe[];
 
     abstract disconnect();
+
+    abstract disconnectRecipe(key);
 }

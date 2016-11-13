@@ -6,11 +6,15 @@ import {FirebaseFactory} from "../firebase.factory";
 import {RecipeService} from "./recipe.service";
 import {FirebaseRecipeConverter} from "./firebase.recipe.converter";
 import {FirebaseService} from "../firebase.service";
+import {App} from "../app.component";
 
 @Injectable()
 export class RecipeFirebaseService extends RecipeService {
 
+    private logger = App.LOGGER_FACTORY.getLogger("RecipeFirebaseService");
+
     private firebaseService : FirebaseService;
+    private recipesMap : { [key:string]:Recipe[]; } = {};
 
     constructor(private imageService:ImageService) {
         super();
@@ -19,15 +23,31 @@ export class RecipeFirebaseService extends RecipeService {
             this.imageService,
             new FirebaseRecipeConverter());
     }
-
     retrieve(key:string, callback):void {
         this.firebaseService.retrieve(key, callback);
     }
-    retrieveAll(callback) {
-        this.firebaseService.retrieveAll(callback);
+    retrieveAll() {
+        if (!this.recipesMap["all"]) {
+            this.logger.debug("Fetching recipes");
+            this.recipesMap["all"] = [];
+
+            var thiz = this;
+            this.firebaseService.retrieveAll(function(recipe) {
+                thiz.recipesMap["all"].push(recipe);
+            });
+        }
+        return this.recipesMap["all"];
     }
-    retrieveByCategory(category, callback) {
-        this.firebaseService.retrieveByCategory(category, callback);
+    retrieveByCategory(category) {
+        if (!this.recipesMap["byCategory:"+category]) {
+            this.recipesMap["byCategory:"+category] = [];
+
+            var thiz = this;
+            this.firebaseService.retrieveByCategory(category, function(recipe) {
+                thiz.recipesMap["byCategory:"+category].push(recipe);
+            });
+        }
+        return this.recipesMap["byCategory:"+category];
     }
 
     save(recipe:Recipe, callback) {
@@ -35,11 +55,14 @@ export class RecipeFirebaseService extends RecipeService {
     }
 
     remove(recipe:Recipe) {
-        var recipesRef = FirebaseFactory.getFirebaseRef("recipes/");
-        recipesRef.child(recipe.key).remove();
+        this.firebaseService.remove(recipe);
     }
 
     disconnect() {
         this.firebaseService.disconnect();
+    }
+
+    disconnectRecipe(key) {
+        this.firebaseService.disconnectEntity(key);
     }
 }

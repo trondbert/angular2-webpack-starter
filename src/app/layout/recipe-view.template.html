@@ -28,7 +28,6 @@
 
         <div>
             <button (click)="editRecipe()">Rediger</button>
-            <button (click)="goBack()">Tilbake</button>
             <button (click)="goToRecipes()" class="newGroup">Til oppskrifter</button>
             <button *ngIf="!deleteInProcess"       (click)="deleteRecipe()">Slett</button>
             <div *ngIf="deleteInProcess" class="deleteNotice">

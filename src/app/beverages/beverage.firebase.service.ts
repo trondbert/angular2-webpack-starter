@@ -9,6 +9,7 @@ import {Beverage, BeverageService} from "./";
 export class BeverageFirebaseService extends BeverageService {
 
     private firebaseService : FirebaseService;
+    private beveragesMap : { [key:string]:Beverage[]; } = {};
 
     constructor(private imageService:ImageService) {
         super();
@@ -21,8 +22,16 @@ export class BeverageFirebaseService extends BeverageService {
     retrieve(key:string, callback):void {
         this.firebaseService.retrieve(key, callback);
     }
-    retrieveAll(callback) {
-        this.firebaseService.retrieveAll(callback);
+    retrieveAll() : Beverage[] {
+        if (!this.beveragesMap["all"]) {
+            this.beveragesMap["all"] = [];
+
+            var thiz = this;
+            this.firebaseService.retrieveAll(function (beverage) {
+                thiz.beveragesMap["all"].push(beverage);
+            });
+        }
+        return this.beveragesMap["all"];
     }
     retrieveByCategory(category, callback) {
         this.firebaseService.retrieveByCategory(category, callback);
@@ -32,5 +41,10 @@ export class BeverageFirebaseService extends BeverageService {
     }
     remove(beverage:Beverage) {
         this.firebaseService.remove(beverage);
+    }
+    disconnect() {}
+
+    disconnectBeverage(key) {
+        this.firebaseService.disconnectEntity(key);
     }
 }

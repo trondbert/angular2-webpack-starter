@@ -1,19 +1,19 @@
 import {ImageService} from "./image.service";
 import {FirebaseConverter} from "./firebase.converter";
-import {StorageService} from "./storage.service";
 import {FirebaseFactory} from "./firebase.factory";
 import {Entity} from "./entity";
 
-export class FirebaseService extends StorageService {
+export class FirebaseService {
+
+    private firebaseRefs : { [key:string]:any; } = {};
 
     constructor(private baseEntitiesUrl:string,
                 private imageService:ImageService,
                 private firebaseConverter:FirebaseConverter) {
-        super();
     }
 
     retrieve(key:string, fn) {
-        var firebaseRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/' + key);
+        var firebaseRef = this.getFirebaseRef(this.baseEntitiesUrl + '/' + key);
         var thiz = this;
 
         firebaseRef.on('value', function (data) {
@@ -32,7 +32,7 @@ export class FirebaseService extends StorageService {
 
     retrieveAll(callback) {
         var thiz = this;
-        var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/');
+        var fbRef = this.getFirebaseRef(this.baseEntitiesUrl + '/');
 
         var fbCallback = function (data) {
             thiz.entityAdded(data, callback);
@@ -58,7 +58,7 @@ export class FirebaseService extends StorageService {
         var thiz = this;
         var tagList = category.replace(/ø/g, "oe").replace(/æ/g, "ae").replace(/å/g, "aa");
         var tags = tagList.split("&").sort().join("&");
-        var recipesRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + "/")
+        var recipesRef = this.getFirebaseRef(this.baseEntitiesUrl + "/")
             .orderByChild("tags_" + tags)
             .equalTo(true);
 
@@ -83,13 +83,13 @@ export class FirebaseService extends StorageService {
 
     saveEntityOnly(entity:Entity, callback) {
         if (entity.key) {
-            var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + "/");
+            var fbRef = this.getFirebaseRef(this.baseEntitiesUrl + "/");
 
             //noinspection TypeScriptUnresolvedFunction
             fbRef.child(entity.key).set(this.firebaseConverter.entityForStorage(entity));
         }
         else {
-            var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + "/");
+            var fbRef = this.getFirebaseRef(this.baseEntitiesUrl + "/");
             var entityRef = fbRef.push(this.firebaseConverter.entityForStorage(entity));
             entity.key = entityRef.key;
         }
@@ -97,13 +97,27 @@ export class FirebaseService extends StorageService {
     }
 
     remove(entity:Entity) {
-        var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + "/");
+        var fbRef = this.getFirebaseRef(this.baseEntitiesUrl + "/");
         fbRef.child(entity.key).remove();
     }
 
     disconnect() {
-        var fbRef = FirebaseFactory.getFirebaseRef(this.baseEntitiesUrl + '/');
-        fbRef.off();
+        for (var key in this.firebaseRefs) {
+            this.firebaseRefs[key].off();
+            this.firebaseRefs[key] = null;
+        }
+    }
+
+    disconnectEntity(key) {
+        this.firebaseRefs[this.baseEntitiesUrl + "/" + key].off();
+        this.firebaseRefs[this.baseEntitiesUrl + "/" + key] = null;
+    }
+
+    private getFirebaseRef(url: string) {
+        if (!this.firebaseRefs[url])
+            this.firebaseRefs[url] = FirebaseFactory.getFirebaseRef(url);
+
+        return this.firebaseRefs[url];
     }
 }
 

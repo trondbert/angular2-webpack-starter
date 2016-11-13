@@ -34,6 +34,7 @@ export class BeverageViewComponent extends BeverageComponent implements OnInit {
     ngOnDestroy() {
         super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
+        this.getBeverageService().disconnectBeverage(this.route.snapshot.params["key"]);
     }
 
     onUserChanged(newUser:string) {

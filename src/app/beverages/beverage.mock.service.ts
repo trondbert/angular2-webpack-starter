@@ -33,7 +33,9 @@ export class BeverageMockService extends BeverageService {
         callback.call(this, this.beverage1);
     }
 
-    retrieveAll(callback) {
-        callback.call(this, this.beverage1);
+    retrieveAll() : Beverage[] {
+        return null;
     }
+    disconnect() {}
+    disconnectBeverage(key) {}
 }

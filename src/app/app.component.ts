@@ -4,8 +4,10 @@
 import {Component, ViewEncapsulation} from '@angular/core';
 
 import {AppState} from './app.service';
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
 import {FirebaseFactory} from "./firebase.factory";
+
+import {LFService, LoggerFactoryOptions, LogGroupRule, LogLevel} from "typescript-logging";
 
 /*
  * App Component
@@ -23,13 +25,16 @@ export class App {
     name = 'Mat, drikke og kos';
     user = null;
     loginError = null;
+    static readonly LOGGER_FACTORY = LFService.createLoggerFactory(new LoggerFactoryOptions()
+        .addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Debug)));
+
+    private logger = App.LOGGER_FACTORY.getLogger("App");
 
     constructor(public appState:AppState, public router:Router) {
-
+        this.logger.info("Test logging");
     }
 
     ngOnInit() {
-        console.log('Initial App State', this.appState.state);
         this.subscribeToAuthChanges();
     }
 
@@ -38,21 +43,21 @@ export class App {
     }
 
     subscribeToAuthChanges() {
-        var thisComp = this;
+        var thiz = this;
         FirebaseFactory.onAuth(function (user) {
-            console.log("On auth");
+            thiz.logger.debug("On auth");
             if (user) {
-                console.log(user.email + ";" + thisComp.appState.userSubject.getValue());
-                if (user.email != thisComp.appState.userSubject.getValue()) {
-                    thisComp.appState.userSubject.next(user.email);
-                    thisComp.user = user.email;
+                thiz.logger.debug(user.email + ";" + thiz.appState.userSubject.getValue());
+                if (true || user.email != thiz.appState.userSubject.getValue()) {
+                    thiz.appState.userSubject.next(user.email);
+                    thiz.user = user.email;
                 }
             }
-            else if (thisComp.appState.userSubject.getValue() != null) {
-                thisComp.appState.userSubject.next(null);
-                thisComp.user = null;
+            else if (thiz.appState.userSubject.getValue() != null) {
+                thiz.appState.userSubject.next(null);
+                thiz.user = null;
             }
-            thisComp.loginError = null;
+            thiz.loginError = null;
         });
     }
 
@@ -73,7 +78,6 @@ export class App {
     }
     onLoginFailed(error) {
         var errorCode = error.code;
-        var errorMessage = error.message;
         if (errorCode === 'auth/wrong-password') {
             this.loginError = "Feil passord";
         } else {

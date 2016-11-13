@@ -3,7 +3,6 @@ import {OnInit} from "@angular/core";
 import {ActivatedRoute, Router} from "@angular/router"
 import {Location} from "@angular/common";
 import {GenericComponent} from "../generic.component";
-import {StaticData} from "../static.data";
 import {BeverageService} from "./beverage.service";
 import {AppState} from "../app.service";
 
@@ -37,16 +36,8 @@ export class BeveragesListComponent extends GenericComponent implements OnInit {
 
     onUserChanged(newUser:string) {
         if (newUser != null) {
-            this.getRecipes();
+            this.beverages = this.beverageService.retrieveAll();
         }
-    }
-
-    getRecipes() {
-        var thisComp = this;
-        thisComp.beverages = [];
-        thisComp.beverageService.retrieveAll(function(beverage) {
-            thisComp.beverages.push(beverage);
-        });
     }
 
     getLocation() : Location {

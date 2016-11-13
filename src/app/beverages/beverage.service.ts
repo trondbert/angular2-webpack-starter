@@ -1,7 +1,6 @@
-import {StorageService} from "../storage.service";
 import {Beverage} from "./beverage";
 
-export abstract class BeverageService extends StorageService {
+export abstract class BeverageService {
     
     abstract remove(beverage:Beverage):void;
 
@@ -9,5 +8,9 @@ export abstract class BeverageService extends StorageService {
 
     abstract save(beverage:Beverage, callback):void;
 
-    abstract retrieveAll(callback);
+    abstract retrieveAll() : Beverage[];
+
+    abstract disconnect();
+
+    abstract disconnectBeverage(key);
 }

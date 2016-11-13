@@ -7,6 +7,7 @@ import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {StaticData} from "../static.data";
 import {AppState} from "../app.service";
+import {App} from "../app.component";
 declare var $:any;
 
 @Component({
@@ -26,6 +27,7 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
                 appState:AppState) {
 
         super("view", recipeService, appState);
+        this.logger = App.LOGGER_FACTORY.getLogger("RecipeViewComponent");
     }
 
     ngOnInit() {
@@ -34,6 +36,7 @@ export class RecipeViewComponent extends RecipeComponent implements OnInit {
     ngOnDestroy() {
         super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
+        this.getRecipeService().disconnectRecipe(this.route.snapshot.params["key"]);
     }
 
     onUserChanged(newUser:string) {

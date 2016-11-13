@@ -1,11 +1,11 @@
 import {Component} from "@angular/core";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
-import {ImageService} from "../image.service";
 import {BeverageComponent} from "./beverage.component";
 import {Beverage} from "./beverage";
 import {BeverageService} from "./beverage.service";
 import {AppState} from "../app.service";
+import {Subscription} from "rxjs";
 
 declare var $:any;
 
@@ -18,8 +18,7 @@ export class BeverageEditComponent extends BeverageComponent {
 
     private beverage:Beverage;
     private errors = [];
-
-    private sub:any;
+    private sub: Subscription;
     private deleteInProcess = false;
 
     constructor(private router:Router,
@@ -36,6 +35,7 @@ export class BeverageEditComponent extends BeverageComponent {
     ngOnDestroy() {
         super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
+        this.getBeverageService().disconnectBeverage(this.route.snapshot.params["key"]);
     }
 
     onUserChanged(newUser:string) {

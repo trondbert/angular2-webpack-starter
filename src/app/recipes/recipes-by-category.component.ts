@@ -38,19 +38,14 @@ export class RecipesByCategoryComponent extends GenericComponent {
     onUserChanged(newUser:string) {
         if (newUser != null && this.lastUser == null) {
             this.sub && this.sub.unsubscribe();
-            this.getRecipes();
+
+            var thisComp = this;
+            this.sub = this.getRoute().params.subscribe(params => {
+                thisComp.recipes = thisComp.recipeService.retrieveByCategory(params['key']);
+                this.setLastRecipeList(this.location.path());
+            });
         }
         this.lastUser = newUser;
-    }
-
-    getRecipes() {
-        var thisComp = this;
-        this.sub = this.getRoute().params.subscribe(params => {
-            thisComp.recipes = [];
-            thisComp.recipeService.retrieveByCategory(params['key'], function(recipe) {
-                thisComp.recipes.push(recipe);
-            });
-        });
     }
 
     getAppState()               { return this.appState; }

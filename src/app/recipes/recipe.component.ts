@@ -32,4 +32,5 @@ export abstract class RecipeComponent extends GenericComponent {
         let link = ['/recipes/' + this.recipe.key + '/edit/'];
         this.getRouter().navigate(link);
     }
+
 }

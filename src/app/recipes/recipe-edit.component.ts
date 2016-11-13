@@ -37,6 +37,7 @@ export class RecipesEditComponent extends RecipeComponent {
     ngOnDestroy() {
         super.ngOnDestroy();
         this.sub && this.sub.unsubscribe();
+        this.getRecipeService().disconnectRecipe(this.route.snapshot.params["key"]);
     }
 
     scrollToBottom(): void {
@@ -84,6 +85,10 @@ export class RecipesEditComponent extends RecipeComponent {
         this.getRecipeService().save(this.recipe, function(key) {
             thisComp.goToRecipe(thisComp.recipe, null);
         });
+    }
+
+    cancelEditing() {
+        this.goToRecipe(this.recipe, null);
     }
     
     showImageEditor(yay) {

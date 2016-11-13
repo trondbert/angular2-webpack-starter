@@ -32,12 +32,11 @@ export class RecipeMockService extends RecipeService {
     save(recipe:Recipe, callback):void {
     }
 
-    retrieveByCategory(category:string, callback) {
-        callback.call(this, this.recipe1);
+    retrieveByCategory(category:string) {
     }
 
-    retrieveAll(callback) {
-        callback.call(this, this.recipe1);
+    retrieveAll() {
+        return null;
     }
     
     getBaseEntitiesUrl() {
@@ -45,4 +44,6 @@ export class RecipeMockService extends RecipeService {
     }
 
     disconnect() {}
+
+    disconnectRecipe(key) {}
 }
