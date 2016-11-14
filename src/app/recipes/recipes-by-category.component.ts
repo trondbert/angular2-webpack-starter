@@ -1,17 +1,16 @@
 import { Component } from '@angular/core';
-import {RecipesListComponent} from "./recipes-list.component";
 import {Router, ActivatedRoute} from "@angular/router";
 import {Location} from "@angular/common";
 import {RecipeService} from "./recipe.service";
 import {AppState} from "../app.service";
-import {GenericComponent} from "../generic.component";
+import {RecipesComponent} from "./recipes.component";
 
 @Component({
     selector: 'recipesByCategory',
     templateUrl: '../layout/recipes.template.html',
     styleUrls: ['../layout/app.style.css', '../layout/recipes.style.css']
 })
-export class RecipesByCategoryComponent extends GenericComponent {
+export class RecipesByCategoryComponent extends RecipesComponent {
 
     private sub:any;
     private recipes;
@@ -41,7 +40,16 @@ export class RecipesByCategoryComponent extends GenericComponent {
 
             var thisComp = this;
             this.sub = this.getRoute().params.subscribe(params => {
-                thisComp.recipes = thisComp.recipeService.retrieveByCategory(params['key']);
+                var tagsParam = params["key"];
+                this.categories = tagsParam.replace(/ø/g, "oe").replace(/æ/g, "ae").replace(/å/g, "aa")
+                    .split("&");
+                this.appState.searchTags.length = 0;
+                this.categories.forEach(function(cat) {
+                    thisComp.appState.searchTags.push(cat);
+                });
+
+                thisComp.recipes = thisComp.recipeService.retrieveByCategory(this.categories.slice(0));
+                window["recipes"] = thisComp.recipes;
                 this.setLastRecipeList(this.location.path());
             });
         }

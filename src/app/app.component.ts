@@ -25,13 +25,14 @@ export class App {
     name = 'Mat, drikke og kos';
     user = null;
     loginError = null;
+    searchTags;
     static readonly LOGGER_FACTORY = LFService.createLoggerFactory(new LoggerFactoryOptions()
         .addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Debug)));
 
     private logger = App.LOGGER_FACTORY.getLogger("App");
 
     constructor(public appState:AppState, public router:Router) {
-        this.logger.info("Test logging");
+        this.searchTags = appState.searchTags;
     }
 
     ngOnInit() {
@@ -92,5 +93,10 @@ export class App {
             ("0" + (date.getMonth() + 1)).slice(-2) +
             ("0" + date.getDate()).slice(-2);
     };
+
+    niceSearchTag(tag) {
+        if (tag == "kjoett") return "kjøtt";
+        return tag;
+    }
 }
 

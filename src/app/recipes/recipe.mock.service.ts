@@ -32,7 +32,7 @@ export class RecipeMockService extends RecipeService {
     save(recipe:Recipe, callback):void {
     }
 
-    retrieveByCategory(category:string) {
+    retrieveByCategory(whatever:string[]) {
     }
 
     retrieveAll() {

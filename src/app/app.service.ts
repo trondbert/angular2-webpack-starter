@@ -11,6 +11,8 @@ export class AppState {
 
   userSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
+  searchTags = [];
+
   constructor() {
 
   }

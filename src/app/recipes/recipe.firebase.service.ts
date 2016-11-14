@@ -33,21 +33,31 @@ export class RecipeFirebaseService extends RecipeService {
 
             var thiz = this;
             this.firebaseService.retrieveAll(function(recipe) {
-                thiz.recipesMap["all"].push(recipe);
-            });
+                    thiz.recipesMap["all"].push(recipe);
+                },
+                function(recipe) {
+                    thiz.firebaseService.removeFromList(thiz.recipesMap["all"], recipe);
+                }
+            );
         }
         return this.recipesMap["all"];
     }
-    retrieveByCategory(category) {
-        if (!this.recipesMap["byCategory:"+category]) {
-            this.recipesMap["byCategory:"+category] = [];
+    retrieveByCategory(tagList) {
+        var categoriesKey = tagList.sort().join("&");
+        if (!this.recipesMap["byCategory:"+categoriesKey]) {
+            this.recipesMap["byCategory:"+categoriesKey] = [];
 
             var thiz = this;
-            this.firebaseService.retrieveByCategory(category, function(recipe) {
-                thiz.recipesMap["byCategory:"+category].push(recipe);
-            });
+            this.firebaseService.retrieveByCategory(tagList, function(recipe) {
+                thiz.recipesMap["byCategory:"+categoriesKey].push(recipe);
+            },
+            function(recipe) {
+                thiz.firebaseService.removeFromList(
+                    thiz.recipesMap["byCategory:"+categoriesKey], recipe);
+            }
+            );
         }
-        return this.recipesMap["byCategory:"+category];
+        return this.recipesMap["byCategory:"+categoriesKey];
     }
 
     save(recipe:Recipe, callback) {

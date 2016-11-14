@@ -1,7 +1,7 @@
 import {Entity} from "./entity";
 export abstract class FirebaseConverter {
 
-    abstract entityFromStorage(key, recipeFb);
+    abstract entityFromStorage(key, entityFb);
 
     abstract entityForStorage(entity:Entity);
 

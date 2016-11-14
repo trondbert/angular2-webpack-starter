@@ -1,14 +1,16 @@
 <div class="siteHeader"><h1>{{name}}</h1>
     <nav>
-        <div><div>Middag</div><div>Fisk</div></div>
         <ul><li><a [routerLink]="['/recipes/category/middag']">Middag</a>
             <ul><li><a [routerLink]="['/recipes/category/middag&fisk']">Fisk</a></li>
                 <li><a [routerLink]="['/recipes/category/middag&kjoett']">Kjøtt</a></li>
                 <li><a [routerLink]="['/recipes/category/middag&vegetar']">Vegetar</a></li>
             </ul>
-        </li>
+            </li>
             <li><a [routerLink]="['/recipes/category/snacks']">Snacks</a></li>
             <li><a [routerLink]="['/beverages']">Vin</a></li>
+            <div *ngIf="searchTags.length" class="searchTags">
+                <div *ngFor="let tag of searchTags" class="searchTag">{{niceSearchTag(tag)}} &#x2713;</div>
+            </div>
             <li class="moreOptions"><a href="#">&#x2295;</a>
                 <ul><li><a [routerLink]="['./recipes/new']">Ny&nbsp;oppskrift</a></li>
                     <li><a [routerLink]="['/beverages/new']">Ny vin</a></li>
@@ -16,7 +18,6 @@
                     <li *ngIf="user" class="loggUt"><a (click)="logOut()">Logg ut</a></li>
                 </ul>
             </li>
-            <li></li>
             <li class ="loggInn">
                 <input *ngIf="!user" #box type="text" size="12" placeholder="Passord her..."
                        (keyup.enter)="logIn(box.value)" (blur)="logIn(box.value)"/>

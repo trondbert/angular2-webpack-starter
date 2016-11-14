@@ -28,13 +28,17 @@ export class BeverageFirebaseService extends BeverageService {
 
             var thiz = this;
             this.firebaseService.retrieveAll(function (beverage) {
-                thiz.beveragesMap["all"].push(beverage);
-            });
+                    thiz.beveragesMap["all"].push(beverage);
+                },
+                function(beverage) {
+                    thiz.firebaseService.removeFromList(thiz.beveragesMap["all"], beverage);
+                }
+            );
         }
         return this.beveragesMap["all"];
     }
     retrieveByCategory(category, callback) {
-        this.firebaseService.retrieveByCategory(category, callback);
+        //TODO
     }
     save(beverage:Beverage, callback) {
         this.firebaseService.save(beverage, callback);

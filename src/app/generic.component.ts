@@ -14,6 +14,7 @@ export abstract class GenericComponent {
     private isSubscribed = false;
 
     ngOnInit() {
+        this.getAppState().searchTags.length = 0;
         if (!this.isSubscribed) {
             this.getAppState().userSubject.subscribe(x => {
                     this.onUserChanged(x);

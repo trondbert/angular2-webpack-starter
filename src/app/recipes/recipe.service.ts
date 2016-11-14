@@ -9,7 +9,7 @@ export abstract class RecipeService {
 
     abstract save(recipe:Recipe, callback):void;
 
-    abstract retrieveByCategory(key:string);
+    abstract retrieveByCategory(tagList:string[]);
 
     abstract retrieveAll() : Recipe[];
 

@@ -30,15 +30,19 @@ export class FirebaseService {
         });
     }
 
-    retrieveAll(callback) {
+    retrieveAll(onAdded, onRemoved) {
         var thiz = this;
         var fbRef = this.getFirebaseRef(this.baseEntitiesUrl + '/');
 
         var fbCallback = function (data) {
-            thiz.entityAdded(data, callback);
+            thiz.entityAdded(data, onAdded);
         };
 
         fbRef.on('child_added', fbCallback);
+        fbRef.on('child_removed', function(data) {
+            var entity = thiz.firebaseConverter.entityFromStorage(data.key, data.val());
+            onRemoved.call(thiz, entity);
+        });
     }
 
     entityAdded(data, callback) {
@@ -54,16 +58,21 @@ export class FirebaseService {
         }
     }
 
-    retrieveByCategory(category, callback) {
+    retrieveByCategory(categories, onAdded, onRemoved) {
         var thiz = this;
-        var tagList = category.replace(/ø/g, "oe").replace(/æ/g, "ae").replace(/å/g, "aa");
-        var tags = tagList.split("&").sort().join("&");
+        var tagList = categories.map(function(tag) {
+            return tag.replace(/ø/g, "oe").replace(/æ/g, "ae").replace(/å/g, "aa");});
+
         var recipesRef = this.getFirebaseRef(this.baseEntitiesUrl + "/")
-            .orderByChild("tags_" + tags)
+            .orderByChild("tags_" + tagList.sort().join("&"))
             .equalTo(true);
 
         recipesRef.on('child_added', function (data) {
-            thiz.entityAdded(data, callback);
+            thiz.entityAdded(data, onAdded);
+        });
+        recipesRef.on('child_removed', function (data) {
+            var entity = thiz.firebaseConverter.entityFromStorage(data.key, data.val());
+            onRemoved.call(this, entity);
         });
     }
 
@@ -99,6 +108,18 @@ export class FirebaseService {
     remove(entity:Entity) {
         var fbRef = this.getFirebaseRef(this.baseEntitiesUrl + "/");
         fbRef.child(entity.key).remove();
+    }
+
+    removeFromList(entityList: Entity[], entity: Entity) {
+        var found = false;
+        for (var i = 0; i < entityList.length; i++) {
+            if (found) {
+                entityList[i - 1] = entityList[i];
+            } else {
+                found = (entityList[i].key == entity.key);
+            }
+        }
+        if (found) entityList.length = entityList.length - 1;
     }
 
     disconnect() {

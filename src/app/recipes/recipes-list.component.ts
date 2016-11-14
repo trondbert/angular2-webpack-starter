@@ -6,13 +6,14 @@ import {Location} from "@angular/common";
 import {RecipeService} from "./recipe.service";
 import {AppState} from "../app.service";
 import {App} from "../app.component";
+import {RecipesComponent} from "./recipes.component";
 
 @Component({
     selector: 'recipes',
     templateUrl: '../layout/recipes.template.html',
     styleUrls: ['../layout/app.style.css', '../layout/recipes.style.css']
 })
-export class RecipesListComponent extends GenericComponent implements OnInit {
+export class RecipesListComponent extends RecipesComponent implements OnInit {
 
     private recipes;
 
