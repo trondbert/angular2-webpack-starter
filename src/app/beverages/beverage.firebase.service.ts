@@ -1,4 +1,4 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 import {ImageService} from "../image.service";
 import {FirebaseBeverageConverter} from "./firebase.beverage.converter";
@@ -36,9 +36,6 @@ export class BeverageFirebaseService extends BeverageService {
             );
         }
         return this.beveragesMap["all"];
-    }
-    retrieveByCategory(category, callback) {
-        //TODO
     }
     save(beverage:Beverage, callback) {
         this.firebaseService.save(beverage, callback);

@@ -86,7 +86,6 @@ nav li {
 }
 nav > ul > li {
     display: inline-block;
-    vertical-align: top;
     width: 13%;
     position: relative;
 }
@@ -110,6 +109,16 @@ li.loggInn {
 }
 li.moreOptions, li.moreOptions * {
     float:right;
+}
+.searchIcon {
+    float: right;
+    padding: 0.7em 0.7em 0.3em 0.7em;
+}
+.searchIcon:hover {
+    cursor: pointer;
+}
+.searchBox {
+    padding: 0.5em;
 }
 .searchTags {
     display: inline-block;

@@ -25,6 +25,8 @@ export class App {
     name = 'Mat, drikke og kos';
     user = null;
     loginError = null;
+    showSearch = false;
+    searchFilter = "";
     searchTags;
     static readonly LOGGER_FACTORY = LFService.createLoggerFactory(new LoggerFactoryOptions()
         .addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Debug)));
@@ -98,5 +100,15 @@ export class App {
         if (tag == "kjoett") return "kjøtt";
         return tag;
     }
+
+    toggleSearch() {
+        this.showSearch = !this.showSearch;
+    }
+
+    searchFilterChanged() {
+        console.log(this.searchFilter);
+        this.appState.searchFilter.next(this.searchFilter);
+    }
+
 }
 

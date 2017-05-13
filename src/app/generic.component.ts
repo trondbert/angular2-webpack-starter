@@ -16,22 +16,31 @@ export abstract class GenericComponent {
     ngOnInit() {
         this.getAppState().searchTags.length = 0;
         if (!this.isSubscribed) {
-            this.getAppState().userSubject.subscribe(x => {
-                    this.onUserChanged(x);
-                },
-                e => console.log('Error related to user.subscribe: %s', e),
-                () => console.log('onCompleted user.subscribe'));
-            this.isSubscribed = true;
+            this.subscribeToAppState();
         }
     }
+
     ngOnDestroy() {
         if (this.isSubscribed) {
-            var currentUser = this.getAppState().userSubject.getValue();
-            this.getAppState().userSubject.complete();
-
-            this.getAppState().userSubject = new BehaviorSubject<string>(currentUser);
-            this.isSubscribed = false;
+            this.unsubscribeToAppState();
         }
+    }
+
+    protected subscribeToAppState() {
+        this.getAppState().userSubject.subscribe(x => {
+                this.onUserChanged(x);
+            },
+            e => console.log('Error related to user.subscribe: %s', e),
+            () => console.log('onCompleted user.subscribe'));
+        this.isSubscribed = true;
+    }
+
+    protected unsubscribeToAppState() {
+        var currentUser = this.getAppState().userSubject.getValue();
+        this.getAppState().userSubject.complete();
+
+        this.getAppState().userSubject = new BehaviorSubject<string>(currentUser);
+        this.isSubscribed = false;
     }
 
     abstract getRouter() : Router;
