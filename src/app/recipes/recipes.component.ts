@@ -11,7 +11,6 @@ export abstract class RecipesComponent extends GenericComponent {
         super.subscribeToAppState();
         this.getAppState().searchFilter.subscribe(x => {
                 if (x != null) {
-                    console.log("App state searchFilter changed: " + x);
                     this.searchFilter = x;
                 }
             },

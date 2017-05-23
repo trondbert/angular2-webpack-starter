@@ -39,10 +39,8 @@ export class ImageEditComponent {
         if (changes["imageData"]) {
             this.image_target = $(".resizableImage")[0];
             this.image_target.src = this.imageData;
-            console.log("this.image_target: " + this.image_target);
             this.init();
         }
-        console.log ("Changed " + Object.keys(changes));
     }
 
     init() {
@@ -83,7 +81,6 @@ export class ImageEditComponent {
     }
 
     mouseup(e) {
-        console.log("Mouseup(e)");
         e.preventDefault();
         if (this.isResizing()) {
             this.resizeInProgress = false;
@@ -94,7 +91,6 @@ export class ImageEditComponent {
     }
 
     startMoving (e) {
-        console.log("Startmoving(e)");
         e.preventDefault();
         e.stopPropagation();
         this.saveEventState(e);
@@ -103,7 +99,6 @@ export class ImageEditComponent {
 
     //Med utgangspunkt i http://tympanus.net/codrops/2014/10/30/resizing-cropping-images-canvas/
     resizing (e) {
-        console.log("Start of resizing(e)");
         var mouse={x:null, y: null},width,height,left,top,offset = this.$container.offset();
         mouse.x = (e.clientX || e.pageX) + $(window).scrollLeft();
         mouse.y = (e.clientY || e.pageY) + $(window).scrollTop();
@@ -151,7 +146,6 @@ export class ImageEditComponent {
     }
 
     resizeImage (width, height) {
-        console.log("resizeImage");
         this.resize_canvas.width = width;
         this.resize_canvas.height = height;
         this.resize_canvas.getContext('2d').drawImage(this.orig_src, 0, 0, width, height);
@@ -186,7 +180,6 @@ export class ImageEditComponent {
     }
 
     cancel () {
-        console.log("Cancel");
         this.onImageEdited.emit(null);
     }
 

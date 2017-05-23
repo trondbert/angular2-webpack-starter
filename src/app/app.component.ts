@@ -106,7 +106,6 @@ export class App {
     }
 
     searchFilterChanged() {
-        console.log(this.searchFilter);
         this.appState.searchFilter.next(this.searchFilter);
     }
 
