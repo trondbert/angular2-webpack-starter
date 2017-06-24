@@ -42,45 +42,45 @@ export class App {
     }
 
     ngOnDestroy() {
-        this.unsubscribeToAuthChanges();
+        App.unsubscribeToAuthChanges();
     }
 
     subscribeToAuthChanges() {
-        var thiz = this;
+        const self = this;
         FirebaseFactory.onAuth(function (user) {
-            thiz.logger.debug("On auth");
+            self.logger.debug("On auth");
             if (user) {
-                thiz.logger.debug(user.email + ";" + thiz.appState.userSubject.getValue());
-                if (true || user.email != thiz.appState.userSubject.getValue()) {
-                    thiz.appState.userSubject.next(user.email);
-                    thiz.user = user.email;
+                self.logger.debug(user.email + ";" + self.appState.userSubject.getValue());
+                if (true || user.email != self.appState.userSubject.getValue()) {
+                    self.appState.userSubject.next(user.email);
+                    self.user = user.email;
                 }
             }
-            else if (thiz.appState.userSubject.getValue() != null) {
-                thiz.appState.userSubject.next(null);
-                thiz.user = null;
+            else if (self.appState.userSubject.getValue() != null) {
+                self.appState.userSubject.next(null);
+                self.user = null;
             }
-            thiz.loginError = null;
+            self.loginError = null;
         });
     }
 
-    unsubscribeToAuthChanges() {
+    static unsubscribeToAuthChanges() {
         FirebaseFactory.offAuth();
     }
 
     logIn(password) {
         if (password) {
-            var thisComp = this;
+            const thisComp = this;
             FirebaseFactory.logIn(password, function(error) {
                 thisComp.onLoginFailed(error);
             });
         }
     }
-    logOut() {
+    static logOut() {
         FirebaseFactory.logOut();
     }
     onLoginFailed(error) {
-        var errorCode = error.code;
+        const errorCode = error.code;
         if (errorCode === 'auth/wrong-password') {
             this.loginError = "Feil passord";
         } else {
@@ -96,7 +96,7 @@ export class App {
             ("0" + date.getDate()).slice(-2);
     };
 
-    niceSearchTag(tag) {
+    static niceSearchTag(tag) {
         if (tag == "kjoett") return "kjøtt";
         return tag;
     }
