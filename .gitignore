@@ -59,6 +59,7 @@ npm-debug.log
 # IDE #
 .idea/
 *.swp
+*.iml
 
 *.js
 *.js.map
