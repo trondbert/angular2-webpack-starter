@@ -1,5 +1,5 @@
 <article class="beveragesList">
-    <div *ngFor="let beverage of beverages" class="beverage"
+    <div *ngFor="let beverage of beverages |filter:searchFilter" class="beverage"
          (click)="goToBeverage(beverage, $event)">
         <img [src]="beverage.image ? beverage.image.imageData : placeholderImage">
         <a class="imageText" href="">{{beverage.name}}</a>

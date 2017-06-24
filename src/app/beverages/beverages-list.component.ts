@@ -5,6 +5,7 @@ import {Location} from "@angular/common";
 import {GenericComponent} from "../generic.component";
 import {BeverageService} from "./beverage.service";
 import {AppState} from "../app.service";
+import {BehaviorSubject} from "rxjs/BehaviorSubject";
 
 @Component({
     selector: 'beverages',
@@ -14,6 +15,8 @@ import {AppState} from "../app.service";
 export class BeveragesListComponent extends GenericComponent implements OnInit {
 
     protected beverages = [];
+
+    protected searchFilter = "";
 
     constructor(private beverageService: BeverageService,
                 private route:ActivatedRoute,
@@ -50,5 +53,23 @@ export class BeveragesListComponent extends GenericComponent implements OnInit {
 
     getRoute() {
         return this.route;
+    }
+
+    protected subscribeToAppState() {
+        super.subscribeToAppState();
+        this.getAppState().searchFilter.subscribe(x => {
+                if (x != null) {
+                    this.searchFilter = x;
+                }
+            },
+            e => console.log('Error related to searchFilter.subscribe: %s', e),
+            () => console.log('onCompleted searchFilter.subscribe'));
+    }
+
+    protected unsubscribeToAppState() {
+        super.unsubscribeToAppState();
+
+        this.getAppState().searchFilter.complete();
+        this.getAppState().searchFilter = new BehaviorSubject<string>("");
     }
 }
