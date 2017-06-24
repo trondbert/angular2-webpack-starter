@@ -12,7 +12,7 @@ export class FirebaseRecipeConverter implements FirebaseConverter {
         recipe.imageId = recipeFb.imageId || null;
         recipe.instructions = recipeFb.instructions;
         recipe.name = recipeFb.name;
-        recipe.tags = recipeFb.tags;
+        recipe.tags = this.niceTagList(recipeFb.tags).join(" ");
         recipe.transients = {
             ingredients1: recipeFb.ingredients.split("~*/|")[0] || "",
             ingredients2: recipeFb.ingredients.split("~*/|")[1] || "" };
@@ -45,6 +45,17 @@ export class FirebaseRecipeConverter implements FirebaseConverter {
         }
         if (tagsList)
             return tagsMap;
+    }
+
+    niceTagList(tagList) {
+        var result = [];
+        for (let tag of tagList) {
+            if (tag == "kjoett")
+                result.push("kjøtt");
+            else
+                result.push(tag);
+        }
+        return result;
     }
 
     createTagsList(tags, index) {
