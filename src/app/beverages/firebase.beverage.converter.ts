@@ -16,12 +16,13 @@ export class FirebaseBeverageConverter implements FirebaseConverter {
     }
 
     entityForStorage(beverage:Beverage) {
-        return {
+        var forStorage = {
             dateCreated: beverage.dateCreated,
             dateModified: beverage.dateModified,
             imageId: beverage.imageId,
             name: beverage.name,
             comments: beverage.comments,
         };
+        return forStorage;
     }
 }

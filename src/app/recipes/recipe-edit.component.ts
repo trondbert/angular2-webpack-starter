@@ -123,6 +123,13 @@ export class RecipesEditComponent extends RecipeComponent {
         return this.location;
     }
 
+    getTagMap(tags) {
+        for (let tag of tags.split(/ +/)) {
+            var tagFixed = tag.replace(/ø/g, "oe").replace(/å/g, "aa").replace(/æ/g, "ae");
+            console.log(tagFixed);
+        }
+    }
+    
     deleteRecipe() {
         this.deleteInProcess = true;
     }

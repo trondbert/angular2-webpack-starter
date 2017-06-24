@@ -11,10 +11,7 @@
             <div *ngIf="searchTags.length" class="searchTags">
                 <div *ngFor="let tag of searchTags" class="searchTag">{{niceSearchTag(tag)}} &#x2713;</div>
             </div>
-            <!--
-            &#128269; &#x1F50D; or &#x1F50E; &#x1f50e;-->
             <li class="moreOptions"><a href="#">&#x2295;</a>
-                <i class="fa fa-search searchIcon" (click)="toggleSearch()"></i>
                 <ul><li><a [routerLink]="['./recipes/new']">Ny&nbsp;oppskrift</a></li>
                     <li><a [routerLink]="['/beverages/new']">Ny vin</a></li>
                     <li><a [routerLink]="['/recipes']">Alle oppskrifter</a></li>
@@ -29,6 +26,4 @@
     </nav>
 </div>
 <div *ngIf="loginError" class="errorMessage">{{loginError}}</div>
-<div *ngIf="showSearch" class="searchBox">
-    Filter: <input type="text" [(ngModel)]="searchFilter" (keyup)="searchFilterChanged()"/></div>
 <router-outlet></router-outlet>

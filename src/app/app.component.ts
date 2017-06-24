@@ -25,8 +25,6 @@ export class App {
     name = 'Mat, drikke og kos';
     user = null;
     loginError = null;
-    showSearch = false;
-    searchFilter = "";
     searchTags;
     static readonly LOGGER_FACTORY = LFService.createLoggerFactory(new LoggerFactoryOptions()
         .addLogGroupRule(new LogGroupRule(new RegExp(".+"), LogLevel.Debug)));
@@ -42,45 +40,45 @@ export class App {
     }
 
     ngOnDestroy() {
-        App.unsubscribeToAuthChanges();
+        this.unsubscribeToAuthChanges();
     }
 
     subscribeToAuthChanges() {
-        const self = this;
+        var thiz = this;
         FirebaseFactory.onAuth(function (user) {
-            self.logger.debug("On auth");
+            thiz.logger.debug("On auth");
             if (user) {
-                self.logger.debug(user.email + ";" + self.appState.userSubject.getValue());
-                if (true || user.email != self.appState.userSubject.getValue()) {
-                    self.appState.userSubject.next(user.email);
-                    self.user = user.email;
+                thiz.logger.debug(user.email + ";" + thiz.appState.userSubject.getValue());
+                if (true || user.email != thiz.appState.userSubject.getValue()) {
+                    thiz.appState.userSubject.next(user.email);
+                    thiz.user = user.email;
                 }
             }
-            else if (self.appState.userSubject.getValue() != null) {
-                self.appState.userSubject.next(null);
-                self.user = null;
+            else if (thiz.appState.userSubject.getValue() != null) {
+                thiz.appState.userSubject.next(null);
+                thiz.user = null;
             }
-            self.loginError = null;
+            thiz.loginError = null;
         });
     }
 
-    static unsubscribeToAuthChanges() {
+    unsubscribeToAuthChanges() {
         FirebaseFactory.offAuth();
     }
 
     logIn(password) {
         if (password) {
-            const thisComp = this;
+            var thisComp = this;
             FirebaseFactory.logIn(password, function(error) {
                 thisComp.onLoginFailed(error);
             });
         }
     }
-    static logOut() {
+    logOut() {
         FirebaseFactory.logOut();
     }
     onLoginFailed(error) {
-        const errorCode = error.code;
+        var errorCode = error.code;
         if (errorCode === 'auth/wrong-password') {
             this.loginError = "Feil passord";
         } else {
@@ -96,18 +94,9 @@ export class App {
             ("0" + date.getDate()).slice(-2);
     };
 
-    static niceSearchTag(tag) {
+    niceSearchTag(tag) {
         if (tag == "kjoett") return "kjøtt";
         return tag;
     }
-
-    toggleSearch() {
-        this.showSearch = !this.showSearch;
-    }
-
-    searchFilterChanged() {
-        this.appState.searchFilter.next(this.searchFilter);
-    }
-
 }
 

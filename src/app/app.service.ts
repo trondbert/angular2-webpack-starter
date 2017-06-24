@@ -11,8 +11,6 @@ export class AppState {
 
   userSubject: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-  searchFilter: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-
   searchTags = [];
 
   constructor() {
