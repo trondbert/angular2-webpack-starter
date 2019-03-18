@@ -1,6 +1,10 @@
 
 <article class="recipeList">
-    <div *ngFor="let recipe of recipes" class="recipe"
+    <div *ngIf="appState.showSearch" class="searchBox">
+        <input type="text" [(ngModel)]="searchFilter">
+    </div>
+
+    <div *ngFor="let recipe of recipes | filter:searchFilter" class="recipe"
          (click)="goToRecipe(recipe, $event)">
         <img [src]="recipe.image ? recipe.image.imageData : placeholderImage">
         <a class="imageText" href="">{{recipe.name}}</a>

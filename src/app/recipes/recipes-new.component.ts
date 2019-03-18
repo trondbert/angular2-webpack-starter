@@ -4,7 +4,6 @@ import {Location} from "@angular/common";
 
 import {Recipe} from "./recipe";
 import {RecipeService} from "./recipe.service";
-import {StaticData} from "../static.data";
 import {RecipeValidator} from "./recipe.validator";
 import {GenericComponent} from "../generic.component";
 import {AppState} from "../app.service";

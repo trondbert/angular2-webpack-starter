@@ -11,6 +11,7 @@ export class FirebaseFactory {
             apiKey: "AIzaSyAZE8LGv8GVDsh5jt9bIz6hmH55RWjxSSE",
             authDomain: "kokogvin-f92bc.firebaseapp.com",
             databaseURL: "https://kokogvin-f92bc.firebaseio.com",
+            projectId: "kokogvin-f92bc",
             storageBucket: "kokogvin-f92bc.appspot.com",
             messagingSenderId: "970455136824"
         };

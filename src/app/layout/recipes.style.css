@@ -11,3 +11,7 @@
     height: 200px;
     cursor: pointer;
 }
+
+.searchBox {
+    clear: both;
+}

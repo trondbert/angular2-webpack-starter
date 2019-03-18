@@ -18,6 +18,7 @@
                     <li *ngIf="user" class="loggUt"><a (click)="logOut()">Logg ut</a></li>
                 </ul>
             </li>
+            <li class="searchToggle"><a (click)="searchToggle()">Søk</a></li>
             <li class ="loggInn">
                 <input *ngIf="!user" #box type="text" size="12" placeholder="Passord her..."
                        (keyup.enter)="logIn(box.value)" (blur)="logIn(box.value)"/>

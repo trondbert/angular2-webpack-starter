@@ -13,6 +13,8 @@ export class AppState {
 
   searchTags = [];
 
+  showSearch = false;
+
   constructor() {
 
   }

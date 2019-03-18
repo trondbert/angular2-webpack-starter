@@ -94,6 +94,10 @@ export class App {
             ("0" + date.getDate()).slice(-2);
     };
 
+    searchToggle() {
+        this.appState.showSearch = !this.appState.showSearch;
+    }
+
     niceSearchTag(tag) {
         if (tag == "kjoett") return "kjøtt";
         return tag;
